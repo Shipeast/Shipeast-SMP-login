@@ -93,10 +93,8 @@ body {
   max-width: 380px;
   padding: 42px;
   border-radius: 22px;
-
   font-family: system-ui, -apple-system, BlinkMacSystemFont,
                "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-
   background: linear-gradient(
     180deg,
     rgba(255,255,255,0.30),
@@ -201,12 +199,20 @@ button:active {
     <small>SURVIVAL | ECONOMY</small>
   </div>
 
-  <form class="register" autocomplete="on">
+  <form class="register" autocomplete="on" id="signupForm">
+    <!-- Minecraft jméno -->
+    <div class="field">
+      <input type="text" name="minecraft_name" autocomplete="username" pattern="^[a-zA-Z0-9_]{3,16}$" title="Pouze písmena, číslice nebo _, 3-16 znaků" required>
+      <label>Minecraft Username</label>
+    </div>
+
+    <!-- Email -->
     <div class="field">
       <input type="email" name="email" autocomplete="email" inputmode="email" required>
       <label>Email</label>
     </div>
 
+    <!-- Heslo -->
     <div class="field">
       <input id="password1" type="password" name="password" autocomplete="new-password" required>
       <label>Password</label>
@@ -218,6 +224,7 @@ button:active {
       </div>
     </div>
 
+    <!-- Confirm Password -->
     <div class="field">
       <input id="password2" type="password" name="password_confirm" autocomplete="new-password" required>
       <label>Confirm Password</label>
@@ -231,9 +238,9 @@ button:active {
 
     <button type="submit">Sign Up</button>
     
-    <!-- NOVÝ TEXT -->
+    <!-- Odkaz zpět na login -->
     <a href="login.html" class="btn-link" style="display:block; text-align:center; margin-top:16px; color:#333; text-decoration:none; font-weight:500;">
-    Already have an account? Login
+      Already have an account? Login
     </a>
   </form>
 </div>
@@ -255,6 +262,16 @@ toggle2.addEventListener('click', () => {
   const visible = password2.type === 'text';
   password2.type = visible ? 'password' : 'text';
   toggle2.classList.toggle('active', !visible);
+});
+
+// Validace shody hesel
+const form = document.getElementById('signupForm');
+form.addEventListener('submit', (e) => {
+  if (password1.value !== password2.value) {
+    e.preventDefault();
+    alert("Passwords do not match!");
+    password2.focus();
+  }
 });
 </script>
 
