@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shipeast SMP – VIP</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,sans-serif}
+body{height:100vh;background:#ffd400;overflow:hidden}
+
+/* BACKGROUND */
+.bg{
+  position:fixed;inset:0;
+  background:
+    linear-gradient(90deg,rgba(255,140,0,.35) 1px,transparent 1px),
+    linear-gradient(180deg,rgba(255,140,0,.35) 1px,transparent 1px),
+    radial-gradient(circle at 30% 30%,#ffe766,#ffc400);
+  background-size:80px 80px,80px 80px,cover;
+  animation:gridMove 25s linear infinite;
+}
+.bg::after{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 70% 60%,rgba(255,120,0,.35),transparent 60%);
+  animation:pulse 6s ease-in-out infinite alternate;
+}
+@keyframes gridMove{0%{background-position:0 0,0 0,center}100%{background-position:400px 240px,240px 400px,center}}
+@keyframes pulse{from{opacity:.4}to{opacity:.8}}
+
+/* HOME BUTTON */
+.home{
+  position:fixed;top:24px;left:24px;z-index:3;
+  width:56px;height:56px;border-radius:18px;
+  background:rgba(255,255,255,.3);
+  backdrop-filter:blur(14px);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.3);
+  transition:.3s ease;
+}
+.home:hover{transform:translateY(-4px)}
+.home svg{width:26px;height:26px;stroke:#000;stroke-width:2;fill:none}
+
+/* CENTER */
+.wrapper{
+  position:relative;z-index:2;
+  height:100%;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:26px;
+}
+
+.logo{width:280px}
+
+.vip-card{
+  width:100%;max-width:520px;
+  padding:40px 44px;
+  border-radius:28px;
+  background:linear-gradient(180deg,rgba(255,255,255,.32),rgba(255,255,255,.14));
+  backdrop-filter:blur(20px);
+  box-shadow:0 30px 80px rgba(0,0,0,.35);
+}
+
+.vip-card h1{
+  text-align:center;
+  font-size:26px;
+  margin-bottom:24px;
+  letter-spacing:1px;
+}
+
+.vip-list{
+  display:flex;flex-direction:column;gap:14px;
+}
+
+.vip-item{
+  padding:14px 18px;
+  border-radius:14px;
+  background:rgba(255,255,255,.25);
+  font-weight:600;
+  display:flex;align-items:center;gap:12px;
+}
+
+.vip-item::before{
+  content:"";
+  width:10px;height:10px;
+  border-radius:50%;
+  background:#000;
+  opacity:.7;
+}
+
+.buy{
+  margin-top:28px;
+  width:100%;padding:16px;
+  border:none;border-radius:50px;
+  background:linear-gradient(135deg,#ffb300,#ff6f00);
+  font-weight:800;font-size:16px;
+  cursor:pointer;
+  box-shadow:0 12px 40px rgba(0,0,0,.4);
+}
+.buy:active{transform:scale(.97)}
+
+@media(max-width:600px){
+  .logo{width:220px}
+  .vip-card{padding:32px}
+}
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+
+<div class="home" onclick="location.href='index.html'">
+  <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+</div>
+
+<div class="wrapper">
+
+  <img src="IMG_3811.png" class="logo" alt="Shipeast SMP">
+
+  <div class="vip-card">
+    <h1>VIP VÝHODY</h1>
+
+    <div class="vip-list">
+      <div class="vip-item">+3 srdíčka navíc</div>
+      <div class="vip-item">Až 500 spawnerů v safe zone</div>
+      <div class="vip-item">Spawnery v safe zone na 100 % efektivity</div>
+      <div class="vip-item">1 S-token každých 45 sekund</div>
+      <div class="vip-item">5 /home slotů</div>
+      <div class="vip-item">/backpack – vlastní inventář</div>
+      <div class="vip-item">Žádný /rtp cooldown</div>
+      <div class="vip-item">Možnost vypnout PvP</div>
+      <div class="vip-item">Hunger ubíhá o 50 % pomaleji</div>
+      <div class="vip-item">1× mystery box každý týden</div>
+      <div class="vip-item">VIP chat tag</div>
+      <div class="vip-item">Skrytý nametag</div>
+    </div>
+
+    <button class="buy">KOUPIT VIP</button>
+  </div>
+
+</div>
+
+</body>
+</html>
