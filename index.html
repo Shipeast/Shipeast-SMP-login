@@ -15,8 +15,8 @@ body {
   margin: 0;
   height: 100vh;
   display: flex;
-  justify-content: center; /* horizontálně centrum */
-  align-items: center;     /* vertikálně centrum */
+  justify-content: center;
+  align-items: center;
   background: #ffd400;
   overflow: hidden;
 }
@@ -56,18 +56,33 @@ body {
 .wrapper {
   display: flex;
   flex-direction: column;
-  align-items: center; /* logo + login karta horizontálně */
+  align-items: center;
   z-index: 2;
+  transform: translateY(-37.7px); /* posun nahoru */
 }
 
-/* ===== LOGO IMAGE + FLOAT ===== */
-.logo {
-  width: clamp(280px, 40vw, 400px); /* větší logo */
-  height: auto;
-  margin-bottom: 32px;
+/* ===== LOGO + TEXT FLOAT ===== */
+.logo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   animation: logoFloat 4.5s ease-in-out infinite;
 }
 
+.logo-wrapper img {
+  width: clamp(320px, 45vw, 450px); /* větší logo */
+  height: auto;
+  margin-bottom: 12px;
+}
+
+.logo-wrapper small {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: rgba(0,0,0,0.65);
+}
+
+/* Float animace společně */
 @keyframes logoFloat {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
@@ -92,6 +107,7 @@ body {
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.35),
     0 30px 80px rgba(0,0,0,0.35);
+  margin-top: 24px;
 }
 
 /* ===== INPUTS ===== */
@@ -169,7 +185,8 @@ button:active {
 
 /* ===== MOBILE ===== */
 @media (max-width: 480px) {
-  .logo { width: 220px; }
+  .logo-wrapper img { width: 260px; }
+  .logo-wrapper small { font-size: 14px; }
   .login { padding: 32px; }
 }
 </style>
@@ -180,8 +197,10 @@ button:active {
 <div class="motion-bg"></div>
 
 <div class="wrapper">
-  <img class="logo" src="IMG_3808.png" alt="Shipeast SMP Logo">
-  <small style="margin-bottom:16px;color:rgba(0,0,0,0.65);font-weight:600;letter-spacing:2px;">SURVIVAL | ECONOMY</small>
+  <div class="logo-wrapper">
+    <img src="IMG_3808.png" alt="Shipeast SMP Logo">
+    <small>SURVIVAL | ECONOMY</small>
+  </div>
 
   <form class="login" autocomplete="on">
     <div class="field">
