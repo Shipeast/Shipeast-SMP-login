@@ -1,41 +1,55 @@
 const dot = document.querySelector('.cursor-dot');
-const ring = document.querySelector('.cursor-ring');
+const halo = document.querySelector('.cursor-halo');
+const outline = document.querySelector('.cursor-outline');
 
-let mouseX = 0, mouseY = 0;
-let ringX = 0, ringY = 0;
+let mx = 0, my = 0;
+let hx = 0, hy = 0;
 
 document.addEventListener('mousemove', e => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-  dot.style.left = mouseX + 'px';
-  dot.style.top = mouseY + 'px';
+  mx = e.clientX;
+  my = e.clientY;
+  dot.style.left = mx + 'px';
+  dot.style.top = my + 'px';
 });
 
-function animate() {
-  ringX += (mouseX - ringX) * 0.15;
-  ringY += (mouseY - ringY) * 0.15;
-  ring.style.left = ringX + 'px';
-  ring.style.top = ringY + 'px';
-  requestAnimationFrame(animate);
+function loop() {
+  hx += (mx - hx) * 0.12;
+  hy += (my - hy) * 0.12;
+  halo.style.left = hx + 'px';
+  halo.style.top = hy + 'px';
+  requestAnimationFrame(loop);
 }
-animate();
+loop();
 
 document.querySelectorAll('button, a').forEach(el => {
-  el.addEventListener('mouseenter', () => ring.classList.add('active'));
+  el.addEventListener('mouseenter', () => {
+    halo.classList.add('hover');
+
+    const r = el.getBoundingClientRect();
+    outline.style.width = r.width + 14 + 'px';
+    outline.style.height = r.height + 14 + 'px';
+    outline.style.left = r.left + r.width/2 + 'px';
+    outline.style.top = r.top + r.height/2 + 'px';
+    outline.style.opacity = 1;
+  });
+
   el.addEventListener('mouseleave', () => {
-    ring.classList.remove('active');
+    halo.classList.remove('hover');
+    outline.style.opacity = 0;
     el.style.transform = 'translate(0,0)';
   });
 
   el.addEventListener('mousemove', e => {
     const r = el.getBoundingClientRect();
-    el.style.transform =
-      `translate(${(e.clientX - (r.left+r.width/2))*0.25}px,
-                 ${(e.clientY - (r.top+r.height/2))*0.25}px)`;
+    const dx = (e.clientX - (r.left + r.width/2)) * 0.15;
+    const dy = (e.clientY - (r.top + r.height/2)) * 0.15;
+
+    el.style.transform = `translate(${dx}px, ${dy}px)`;
+    outline.style.transform = `translate(${dx}px, ${dy}px)`;
   });
 });
 
 if ('ontouchstart' in window) {
-  dot.style.display = ring.style.display = 'none';
+  dot.style.display = halo.style.display = outline.style.display = 'none';
   document.body.style.cursor = 'auto';
 }
