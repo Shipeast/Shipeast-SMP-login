@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const path = svg.querySelector('path');
 
   let mouse = { x: window.innerWidth/2, y: window.innerHeight/2 };
+  dot.style.left = mouse.x + 'px';
+  dot.style.top = mouse.y + 'px';
   let dotPos = { x: mouse.x, y: mouse.y };
   let blobPos = { x: mouse.x, y: mouse.y };
   let blobSize = 40;
