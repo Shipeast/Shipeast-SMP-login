@@ -14,12 +14,14 @@
 body {
   margin: 0;
   height: 100vh;
-  overflow: hidden;
+  display: flex;
+  justify-content: center; /* horizontálně centrum */
+  align-items: center;     /* vertikálně centrum */
   background: #ffd400;
+  overflow: hidden;
 }
 
 /* ===== BACKGROUND ===== */
-
 .motion-bg {
   position: fixed;
   inset: 0;
@@ -50,49 +52,28 @@ body {
   to { opacity: 0.8; }
 }
 
-/* ===== LAYOUT ===== */
-
+/* ===== WRAPPER ===== */
 .wrapper {
-  position: relative;
-  z-index: 2;
-  height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+  align-items: center; /* logo + login karta horizontálně */
+  z-index: 2;
 }
 
 /* ===== LOGO IMAGE + FLOAT ===== */
-
 .logo {
-  margin-bottom: 26px;
-  text-align: center;
-  animation: logoFloat 4.5s ease-in-out infinite;
-}
-
-.logo img {
-  width: clamp(220px, 35vw, 320px);
+  width: clamp(280px, 40vw, 400px); /* větší logo */
   height: auto;
-  display: block;
-}
-
-.logo small {
-  display: block;
-  margin-top: 6px;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  color: rgba(0,0,0,0.65);
+  margin-bottom: 32px;
+  animation: logoFloat 4.5s ease-in-out infinite;
 }
 
 @keyframes logoFloat {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+  50% { transform: translateY(-10px); }
 }
 
 /* ===== LOGIN CARD ===== */
-
 .login {
   width: 100%;
   max-width: 380px;
@@ -114,7 +95,6 @@ body {
 }
 
 /* ===== INPUTS ===== */
-
 .field {
   position: relative;
   margin-bottom: 26px;
@@ -150,7 +130,6 @@ body {
 }
 
 /* ===== SHOW PASSWORD ICON (SVG) ===== */
-
 .toggle-password {
   position: absolute;
   right: 0;
@@ -172,7 +151,6 @@ body {
 }
 
 /* ===== BUTTON ===== */
-
 button {
   width: 100%;
   padding: 16px;
@@ -190,9 +168,8 @@ button:active {
 }
 
 /* ===== MOBILE ===== */
-
 @media (max-width: 480px) {
-  .logo img { width: 220px; }
+  .logo { width: 220px; }
   .login { padding: 32px; }
 }
 </style>
@@ -203,31 +180,18 @@ button:active {
 <div class="motion-bg"></div>
 
 <div class="wrapper">
-  <div class="logo">
-    <img src="IMG_3808.png" alt="Shipeast SMP Logo">
-    <small>SURVIVAL | ECONOMY</small>
-  </div>
+  <img class="logo" src="IMG_3808.png" alt="Shipeast SMP Logo">
+  <small style="margin-bottom:16px;color:rgba(0,0,0,0.65);font-weight:600;letter-spacing:2px;">SURVIVAL | ECONOMY</small>
 
   <form class="login" autocomplete="on">
     <div class="field">
-      <input
-        type="email"
-        name="email"
-        autocomplete="email"
-        inputmode="email"
-        required>
+      <input type="email" name="email" autocomplete="email" inputmode="email" required>
       <label>Email</label>
     </div>
 
     <div class="field">
-      <input
-        id="password"
-        type="password"
-        name="password"
-        autocomplete="current-password"
-        required>
+      <input id="password" type="password" name="password" autocomplete="current-password" required>
       <label>Password</label>
-
       <div class="toggle-password" id="toggle">
         <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
           <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
