@@ -1,30 +1,53 @@
-body { cursor: none; }
+body,
+button,
+a,
+input,
+textarea,
+select {
+  cursor: none !important;
+}
 
 .cursor-dot {
   position: fixed;
   width: 6px;
   height: 6px;
-  background: rgba(0,0,0,0.9);
+  background: rgba(0,0,0,0.85);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10001;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-halo {
+  position: fixed;
+  width: 28px;
+  height: 28px;
+  border: 1.5px solid rgba(0,0,0,0.35);
   border-radius: 50%;
   pointer-events: none;
   z-index: 10000;
   transform: translate(-50%, -50%);
+  transition:
+    width .25s ease,
+    height .25s ease,
+    border .25s ease,
+    background .25s ease;
 }
 
-.cursor-ring {
+/* KDYŽ JE NAD BUTTONEM */
+.cursor-halo.hover {
+  width: 0;
+  height: 0;
+  border: none;
+}
+
+/* OBRYS TLAČÍTKA */
+.cursor-outline {
   position: fixed;
-  width: 40px;
-  height: 40px;
-  border: 2px solid rgba(0,0,0,0.45);
-  border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: 0.25s ease;
-}
-
-.cursor-ring.active {
-  width: 72px;
-  height: 72px;
-  background: rgba(0,0,0,0.08);
+  border-radius: 999px;
+  border: 2px solid rgba(0,0,0,0.5);
+  opacity: 0;
+  transition: opacity .25s ease, transform .25s ease;
 }
