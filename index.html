@@ -6,14 +6,6 @@
 <title>Shipeast SMP – Login</title>
 
 <style>
-/* ===== MINECRAFT FONT ===== */
-@font-face {
-  font-family: 'Minecraft';
-  src: url('fonts/Minecraft-Bold.woff2') format('woff2');
-  font-weight: bold;
-  font-style: normal;
-}
-
 * {
   box-sizing: border-box;
   font-family: Inter, system-ui, sans-serif;
@@ -71,7 +63,7 @@ body {
   padding: 20px;
 }
 
-/* ===== LOGO (MINECRAFT + FLOAT) ===== */
+/* ===== LOGO IMAGE + FLOAT ===== */
 
 .logo {
   margin-bottom: 26px;
@@ -79,12 +71,10 @@ body {
   animation: logoFloat 4.5s ease-in-out infinite;
 }
 
-.logo span {
-  font-family: 'Minecraft', sans-serif;
-  font-size: clamp(44px, 7vw, 64px);
-  font-weight: bold;
-  color: #333; /* tmavý kontrast */
-  text-shadow: 0 8px 30px rgba(0,0,0,0.35);
+.logo img {
+  width: clamp(220px, 35vw, 320px);
+  height: auto;
+  display: block;
 }
 
 .logo small {
@@ -97,8 +87,8 @@ body {
 }
 
 @keyframes logoFloat {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-8px) scale(1.02, 0.98); }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
 /* ===== LOGIN CARD ===== */
@@ -202,7 +192,7 @@ button:active {
 /* ===== MOBILE ===== */
 
 @media (max-width: 480px) {
-  .logo span { font-size: 42px; }
+  .logo img { width: 220px; }
   .login { padding: 32px; }
 }
 </style>
@@ -214,7 +204,7 @@ button:active {
 
 <div class="wrapper">
   <div class="logo">
-    <span>Shipeast SMP</span>
+    <img src="IMG_3808.png" alt="Shipeast SMP Logo">
     <small>SURVIVAL | ECONOMY</small>
   </div>
 
