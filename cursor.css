@@ -16,6 +16,7 @@ select {
   pointer-events: none;
   transform: translate(-50%, -50%);
   z-index: 10001;
+  transition: width .2s ease, height .2s ease, background .2s ease;
 }
 
 .cursor-halo {
