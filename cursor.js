@@ -23,29 +23,30 @@ loop();
 
 document.querySelectorAll('button, a').forEach(el => {
   el.addEventListener('mouseenter', () => {
-    halo.classList.add('hover');
-
     const r = el.getBoundingClientRect();
-    outline.style.width = r.width + 14 + 'px';
-    outline.style.height = r.height + 14 + 'px';
-    outline.style.left = r.left + r.width/2 + 'px';
-    outline.style.top = r.top + r.height/2 + 'px';
+    outline.style.width = r.width + 16 + 'px';
+    outline.style.height = r.height + 16 + 'px';
+    outline.style.left = r.left + r.width / 2 + 'px';
+    outline.style.top = r.top + r.height / 2 + 'px';
     outline.style.opacity = 1;
   });
 
   el.addEventListener('mouseleave', () => {
-    halo.classList.remove('hover');
     outline.style.opacity = 0;
     el.style.transform = 'translate(0,0)';
   });
 
   el.addEventListener('mousemove', e => {
     const r = el.getBoundingClientRect();
-    const dx = (e.clientX - (r.left + r.width/2)) * 0.15;
-    const dy = (e.clientY - (r.top + r.height/2)) * 0.15;
+    const dx = (e.clientX - (r.left + r.width / 2)) * 0.12;
+    const dy = (e.clientY - (r.top + r.height / 2)) * 0.12;
 
+    // magnet jen na tlačítko
     el.style.transform = `translate(${dx}px, ${dy}px)`;
-    outline.style.transform = `translate(${dx}px, ${dy}px)`;
+
+    // outline ZŮSTÁVÁ CENTROVANÝ
+    outline.style.left = r.left + r.width / 2 + dx + 'px';
+    outline.style.top = r.top + r.height / 2 + dy + 'px';
   });
 });
 
