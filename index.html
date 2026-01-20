@@ -3,25 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shipeast SMP – Welcome</title>
+<title>Shipeast SMP – Home</title>
 
 <style>
-* {
-  box-sizing: border-box;
-  font-family: Inter, system-ui, sans-serif;
-}
+* { box-sizing: border-box; font-family: Inter, system-ui, sans-serif; margin:0; padding:0; }
+body { margin:0; background:#ffd400; overflow-x:hidden; }
 
-body {
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #ffd400;
-  overflow: hidden;
-}
-
-/* ===== BACKGROUND ===== */
+/* ===== MOTION BACKGROUND ===== */
 .motion-bg {
   position: fixed;
   inset: 0;
@@ -32,111 +20,164 @@ body {
   background-size: 80px 80px, 80px 80px, cover;
   animation: gridMove 25s linear infinite;
 }
-
 .motion-bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
+  content:"";
+  position:absolute;
+  inset:0;
   background: radial-gradient(circle at 70% 60%, rgba(255,120,0,0.35), transparent 60%);
   animation: pulse 6s ease-in-out infinite alternate;
 }
-
-@keyframes gridMove {
-  0% { background-position: 0 0, 0 0, center; }
-  50% { background-position: 200px 120px, 120px 200px, center; }
-  100% { background-position: 400px 240px, 240px 400px, center; }
-}
-
-@keyframes pulse {
-  from { opacity: 0.4; }
-  to { opacity: 0.8; }
-}
+@keyframes gridMove { 0%{background-position:0 0,0 0,center;}50%{background-position:200px 120px,120px 200px,center;}100%{background-position:400px 240px,240px 400px,center;} }
+@keyframes pulse { from{opacity:0.4;} to{opacity:0.8;} }
 
 /* ===== WRAPPER ===== */
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 2;
-  transform: translateY(-37.7px);
+.wrapper { display:flex; flex-direction:column; align-items:center; z-index:2; text-align:center; padding:24px; }
+
+/* ===== LOGO / HERO ===== */
+.logo-wrapper { display:flex; flex-direction:column; align-items:center; animation: logoFloat 4.5s ease-in-out infinite; margin-bottom:32px; }
+.logo-wrapper img { width: clamp(300px,45vw,450px); height:auto; margin-bottom:12px; }
+.logo-wrapper small { font-size:18px; font-weight:600; letter-spacing:2px; color:rgba(0,0,0,0.65); margin-bottom:12px; }
+@keyframes logoFloat { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
+
+/* ===== IP + verze ===== */
+.server-info { font-size:16px; font-weight:600; margin-bottom:24px; color:#000; }
+
+/* ===== HERO BUTTONS ===== */
+.home-btn {
+  width: 220px; padding:16px; margin:8px 0; border:none; border-radius:50px;
+  background: linear-gradient(135deg,#ffb300,#ff6f00);
+  font-size:18px; font-weight:700; color:#fff;
+  cursor:pointer; box-shadow:0 10px 30px rgba(0,0,0,0.35);
+  transition: transform 0.2s ease;
+}
+.home-btn:hover { transform: scale(1.05); }
+.home-btn:active { transform: scale(0.97); }
+
+/* ===== POPIS SERVERU ===== */
+.server-desc { max-width:900px; background: rgba(255,255,255,0.2); backdrop-filter:blur(15px); border-radius:20px; padding:24px; margin:32px auto; font-size:16px; font-weight:500; box-shadow:0 10px 30px rgba(0,0,0,0.25); }
+
+/* ===== VIP SEKCE ===== */
+.vip-section { max-width:900px; margin:48px auto; text-align:center; color:#000; }
+.vip-section h2 { font-size:28px; font-weight:700; margin-bottom:24px; }
+.vip-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+.vip-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.25), rgba(255,255,255,0.12));
+  backdrop-filter:blur(15px);
+  padding:20px;
+  border-radius:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.25);
+  font-size:16px; font-weight:500;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.vip-card:hover { transform: translateY(-6px); box-shadow:0 14px 40px rgba(0,0,0,0.35); }
+.vip-buy { margin-top:16px; padding:12px 24px; border:none; border-radius:50px; background: linear-gradient(135deg,#ffb300,#ff6f00); color:#fff; font-weight:700; cursor:pointer; transition: transform 0.2s ease; }
+.vip-buy:hover { transform:scale(1.05); }
+
+/* ===== NOVINKY ===== */
+.news-section { max-width:900px; margin:48px auto; }
+.news-section h2 { font-size:28px; font-weight:700; margin-bottom:16px; text-align:center; }
+.news-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+.news-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.25), rgba(255,255,255,0.12));
+  backdrop-filter:blur(15px);
+  padding:16px;
+  border-radius:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.25);
+  font-size:14px;
 }
 
-/* ===== LOGO ===== */
-.logo-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  animation: logoFloat 4.5s ease-in-out infinite;
-  margin-bottom: 32px;
-}
+/* ===== GALERIE ===== */
+.gallery-section { max-width:900px; margin:48px auto; text-align:center; }
+.gallery-section h2 { font-size:28px; font-weight:700; margin-bottom:16px; }
+.gallery-images { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; }
+.gallery-images img { width:100%; border-radius:14px; box-shadow:0 8px 20px rgba(0,0,0,0.25); }
 
-.logo-wrapper img {
-  width: 320px;
-  height: auto;
-  margin-bottom: 12px;
-}
-
-.logo-wrapper small {
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  color: rgba(0,0,0,0.65);
-}
-
-@keyframes logoFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-/* ===== BUTTONS ===== */
-.btn {
-  width: 220px;
-  padding: 16px;
-  margin: 12px 0;
-  border: none;
-  border-radius: 50px;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  color: white;
-  background: linear-gradient(135deg, #ffb300, #ff6f00);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-  transition: transform 0.2s ease, opacity 0.2s ease;
-  text-decoration: none;
-  text-align: center;
-  display: inline-block;
-}
-
-.btn:hover {
-  transform: scale(1.03);
-  opacity: 0.95;
-}
-
-.btn:active {
-  transform: scale(0.96);
-}
+/* ===== KONTAKT ===== */
+.contact-section { max-width:900px; margin:48px auto; text-align:center; font-size:16px; }
+.contact-section h2 { font-size:28px; font-weight:700; margin-bottom:16px; }
+.contact-section a { display:inline-block; margin:8px; padding:12px 24px; border-radius:50px; background: linear-gradient(135deg,#ffb300,#ff6f00); color:#fff; font-weight:700; text-decoration:none; transition: transform 0.2s ease; }
+.contact-section a:hover { transform:scale(1.05); }
 
 /* ===== MOBILE ===== */
-@media (max-width: 480px) {
-  .logo-wrapper img { width: 260px; }
-  .btn { width: 180px; padding: 14px; font-size: 14px; }
+@media(max-width:480px){
+  .logo-wrapper img{width:260px;}
+  .logo-wrapper small{font-size:16px;}
+  .home-btn{width:180px; padding:14px; font-size:16px;}
+  .vip-card,.news-card{font-size:14px;}
 }
 </style>
 </head>
 
 <body>
-
 <div class="motion-bg"></div>
 
 <div class="wrapper">
+  <!-- HERO -->
   <div class="logo-wrapper">
-    <img src="IMG_3811.png" alt="Shipeast SMP Logo">
+    <img src="IMG_3808.png" alt="Shipeast SMP Logo">
     <small>SURVIVAL | ECONOMY</small>
   </div>
+  <div class="server-info">
+    IP: <strong>shipeastsmp.net</strong> &nbsp;|&nbsp; Verze: <strong>1.21.8</strong>
+  </div>
+  <button class="home-btn" onclick="location.href='login.html'">Login</button>
+  <button class="home-btn" onclick="location.href='signup.html'">Sign Up</button>
 
-  <a href="login.html" class="btn">Login</a>
-  <a href="signup.html" class="btn">Sign Up</a>
+  <!-- POPIS SERVERU -->
+  <div class="server-desc">
+    <h2>O serveru</h2>
+    <p>
+      Shipeast SMP je Survival Multiplayer (SMP) server s ekonomickým a PvP prvkem. Hráči se zaměřují na těžbu, stavění, obchodování a interakci mezi sebou. Risk vs. reward systém umožňuje ukládat spawnery do své base s možností krádeže nebo do bezpečné zóny s nižším výnosem. Spawnery generují loot automaticky a ekonomika je založena na S-tokenech, které hráči získávají hraním. PvP je aktivní ve světě a risk zóna motivuje obranu a útoky ostatních hráčů.
+    </p>
+  </div>
+
+  <!-- VIP -->
+  <div class="vip-section">
+    <h2>VIP Výhody</h2>
+    <div class="vip-cards">
+      <div class="vip-card">💬 Chat tag (viditelný pro ostatní)</div>
+      <div class="vip-card">👤 Zneviditelnění jména (ostatní nevidí tvůj nametag)</div>
+      <div class="vip-card">🎒 /backpack – speciální inventář</div>
+      <div class="vip-card">🏠 Extra /home sloty: 5 místo defaultních 2</div>
+      <div class="vip-card">⚡ Odstranění /rtp cooldownu</div>
+      <div class="vip-card">💎 Rychlejší S-tokeny: 1 / 45 sekund (standard: 1 / minutu)</div>
+      <div class="vip-card">🛠️ Spawnery ve safe zone fungují 100%</div>
+      <div class="vip-card">🟢 Maximálně 500 spawnů v safe zone (standard: 400)</div>
+      <div class="vip-card">❌ Možnost vypnout PvP</div>
+      <div class="vip-card">❤️ +3 srdíčka</div>
+      <div class="vip-card">🍗 Hunger ubíhá o polovinu pomaleji</div>
+      <div class="vip-card">🎁 Jeden mystery box každý týden</div>
+    </div>
+    <button class="vip-buy" onclick="window.location.href='purchase.html'">Koupit VIP</button>
+  </div>
+
+  <!-- NOVINKY / AKTUALITY -->
+  <div class="news-section">
+    <h2>Novinky / Aktuality</h2>
+    <div class="news-cards">
+      <div class="news-card">Server je live od 10.1.2026!</div>
+      <div class="news-card">Nový spawner systém implementován.</div>
+      <div class="news-card">Přidány nové PvP eventy.</div>
+    </div>
+  </div>
+
+  <!-- GALERIE / MAPA -->
+  <div class="gallery-section">
+    <h2>Mapa / Galerie</h2>
+    <div class="gallery-images">
+      <img src="screenshot1.jpg" alt="Screenshot serveru">
+      <img src="screenshot2.jpg" alt="Screenshot serveru">
+      <img src="screenshot3.jpg" alt="Screenshot serveru">
+    </div>
+  </div>
+
+  <!-- KONTAKT / DISCORD -->
+  <div class="contact-section">
+    <h2>Kontakt / Discord</h2>
+    <a href="https://discord.gg/yourserver" target="_blank">Připojit se na Discord</a>
+    <a href="rules.html">Pravidla</a>
+    <a href="support.html">Podpora</a>
+  </div>
 </div>
-  
 </body>
 </html>
