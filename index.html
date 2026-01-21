@@ -94,25 +94,26 @@ body{height:100vh;background:#1c1c1c;overflow:hidden}
   max-width:900px;
 }
 .card{
-  width:440px;
-  height:440px;
-  background:none;
-  box-shadow:none;
+  height:260px;
+  border-radius:40px;
+  background:linear-gradient(90deg, rgba(255,255,255,0.25), rgba(255,255,255,0.9) 35%, rgba(255,255,255,0.9) 65%, rgba(255,255,255,0.25));
+  backdrop-filter:blur(18px);
+  box-shadow:0 40px 90px rgba(0,0,0,.35);
   display:flex;
   align-items:center;
   justify-content:center;
   cursor:pointer;
-  transition:.4s cubic-bezier(.2,.8,.2,1);
+  transition:.4s cubic-bezier(.2,.8,.2,1);(.2,.8,.2,1);
 }
 .card:hover{transform:translateY(-18px) scale(1.03)}
 .card:hover{transform:translateY(-12px) scale(1.03);filter:drop-shadow(0 25px 40px rgba(0,0,0,.6))}
 .card img{
-  width:80%;
-  height:80%;
+  width:60%;
+  height:60%;
   object-fit:contain;
   background:#fff;
-  border-radius:32px;
-  padding:0;
+  border-radius:28px;
+  padding:18px;
 }
 
 /* ===== MOBILE ===== */
