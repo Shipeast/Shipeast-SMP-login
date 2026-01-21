@@ -17,8 +17,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #ffd400;
+  background: #1c1c1c;
   overflow: hidden;
+  color: #fff;
 }
 
 /* ===== HOME BUTTON ===== */
@@ -29,7 +30,7 @@ body {
   width:52px;
   height:52px;
   border-radius:16px;
-  background:linear-gradient(180deg,rgba(255,255,255,.35),rgba(255,255,255,.18));
+  background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.05));
   backdrop-filter:blur(14px);
   box-shadow:0 20px 40px rgba(0,0,0,.25);
   display:flex;
@@ -42,7 +43,7 @@ body {
   width:22px;
   height:22px;
   fill:none;
-  stroke:#000;
+  stroke:#ffd400;
   stroke-width:2;
 }
 .home-btn:hover{
@@ -55,9 +56,9 @@ body {
   position: fixed;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(255,140,0,0.35) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(255,140,0,0.35) 1px, transparent 1px),
-    radial-gradient(circle at 30% 30%, #ffe766, #ffc400);
+    linear-gradient(90deg, rgba(255,255,0,.35) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255,255,0,.35) 1px, transparent 1px),
+    radial-gradient(circle at 30% 30%, #333, #1c1c1c);
   background-size: 80px 80px, 80px 80px, cover;
   animation: gridMove 25s linear infinite;
 }
@@ -65,7 +66,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 70% 60%, rgba(255,120,0,0.35), transparent 60%);
+  background: radial-gradient(circle at 70% 60%, rgba(255,215,0,.2), transparent 60%);
   animation: pulse 6s ease-in-out infinite alternate;
 }
 @keyframes gridMove {
@@ -74,8 +75,8 @@ body {
   100% { background-position: 400px 240px, 240px 400px, center; }
 }
 @keyframes pulse {
-  from { opacity: 0.4; }
-  to { opacity: 0.8; }
+  from { opacity: 0.2; }
+  to { opacity: 0.5; }
 }
 
 /* ===== WRAPPER ===== */
@@ -84,7 +85,7 @@ body {
   flex-direction: column;
   align-items: center;
   z-index: 2;
-  transform: translateY(-37.7px);
+  transform: translateY(-20px);
 }
 
 /* ===== LOGO ===== */
@@ -103,7 +104,7 @@ body {
   font-size: 16px;
   font-weight: 600;
   letter-spacing: 2px;
-  color: rgba(0,0,0,0.65);
+  color: rgba(255,215,0,0.8);
 }
 @keyframes logoFloat {
   0%, 100% { transform: translateY(0); }
@@ -116,10 +117,10 @@ body {
   max-width: 380px;
   padding: 42px;
   border-radius: 22px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.30), rgba(255,255,255,0.14));
+  background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
   backdrop-filter: blur(20px);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.1),
     0 30px 80px rgba(0,0,0,0.35);
   margin-top: 24px;
 }
@@ -134,9 +135,10 @@ body {
   padding: 14px 42px 14px 0;
   background: transparent;
   border: none;
-  border-bottom: 2px solid rgba(0,0,0,0.45);
+  border-bottom: 2px solid rgba(255,255,255,0.3);
   font-size: 16px;
   font-weight: 500;
+  color: #fff;
   outline: none;
 }
 .field label {
@@ -145,7 +147,7 @@ body {
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
-  color: rgba(0,0,0,0.65);
+  color: rgba(255,255,255,0.5);
   transition: 0.3s ease;
   font-weight: 500;
 }
@@ -153,7 +155,7 @@ body {
 .field input:valid + label {
   top: -6px;
   font-size: 12px;
-  color: #000;
+  color: #ffd400;
 }
 
 /* ===== SHOW PASSWORD ICON ===== */
@@ -177,17 +179,30 @@ button {
   padding: 16px;
   border: none;
   border-radius: 50px;
-  background: linear-gradient(135deg, #ffb300, #ff6f00);
+  background: linear-gradient(135deg, #ffd400, #ffb300);
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
   box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  color: #1c1c1c;
 }
 button:active { transform: scale(0.96); }
 
+/* ===== SIGNUP LINK ===== */
+.btn-link {
+  display:block;
+  text-align:center;
+  margin-top:16px;
+  color:#ffd400;
+  text-decoration:none;
+  font-weight:500;
+  transition:0.3s ease;
+}
+.btn-link:hover { color:#fff; }
+
 /* ===== MOBILE ===== */
 @media (max-width: 480px) {
-  .logo-wrapper img { width: 320px; }
+  .logo-wrapper img { width: 280px; }
   .logo-wrapper small { font-size: 14px; }
   .login { padding: 32px; }
 }
@@ -221,7 +236,7 @@ button:active { transform: scale(0.96); }
       <input id="password" type="password" name="password" autocomplete="current-password" required>
       <label>Password</label>
       <div class="toggle-password" id="toggle">
-        <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ffd400" stroke-width="2">
           <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
           <circle cx="12" cy="12" r="3"/>
         </svg>
@@ -230,7 +245,7 @@ button:active { transform: scale(0.96); }
 
     <button type="submit">Login</button>
 
-    <a href="signup.html" class="btn-link" style="display:block; text-align:center; margin-top:16px; color:#333; text-decoration:none; font-weight:500;">
+    <a href="signup.html" class="btn-link">
       Don't have account? Create Account
     </a>
   </form>
