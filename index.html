@@ -7,7 +7,7 @@
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,sans-serif}
-body{height:100vh;background:#1c1c1c;overflow:hidden}
+body{min-height:100vh;background:#1c1c1c;overflow:auto}
 
 /* ===== BACKGROUND ===== */
 .bg{
@@ -94,31 +94,36 @@ body{height:100vh;background:#1c1c1c;overflow:hidden}
   max-width:900px;
 }
 .card{
-  height:260px;
+  height:320px;
   border-radius:40px;
-  background:linear-gradient(90deg, rgba(255,255,255,0.25), rgba(255,255,255,0.9) 35%, rgba(255,255,255,0.9) 65%, rgba(255,255,255,0.25));
-  backdrop-filter:blur(18px);
-  box-shadow:0 40px 90px rgba(0,0,0,.35);
+  background:linear-gradient(90deg, rgba(255,255,255,0.35), #ffffff 25%, #ffffff 75%, rgba(255,255,255,0.35));
+  backdrop-filter:blur(25px);
+  box-shadow:0 40px 90px rgba(0,0,0,.45);
   display:flex;
   align-items:center;
   justify-content:center;
   cursor:pointer;
-  transition:.4s cubic-bezier(.2,.8,.2,1);(.2,.8,.2,1);
+  transition:.4s cubic-bezier(.2,.8,.2,1);
 }
 .card:hover{transform:translateY(-18px) scale(1.03)}
 .card:hover{transform:translateY(-12px) scale(1.03);filter:drop-shadow(0 25px 40px rgba(0,0,0,.6))}
 .card img{
-  width:60%;
-  height:60%;
+  width:220px;
+  height:220px;
   object-fit:contain;
   background:#fff;
-  border-radius:28px;
-  padding:18px;
+  border-radius:24px;
+  padding:24px;
 }
 
 /* ===== MOBILE ===== */
 @media(max-width:900px){
-  .grid{grid-template-columns:1fr;gap:32px}
+  .grid{grid-template-columns:1fr;gap:24px}
+  .card{height:260px}
+  .card img{width:200px;height:200px}
+  .logo-wrapper img{width:280px}
+  .topbar{position:static;margin-top:16px;justify-content:center}
+}
   .card{width:180px;height:180px}
   .card img{width:180px;height:180px}
   .logo-wrapper img{width:300px}
