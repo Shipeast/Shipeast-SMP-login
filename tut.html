@@ -7,128 +7,113 @@
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,sans-serif}
-body{height:100vh;background:#ffd400;overflow:hidden}
+body{min-height:100vh;background:#1c1c1c;overflow:auto;color:#fff;}
 
-/* BACKGROUND – stejný jako ostatní stránky */
+/* ===== BACKGROUND ===== */
 .bg{
   position:fixed;inset:0;
   background:
-    linear-gradient(90deg,rgba(255,140,0,.35) 1px,transparent 1px),
-    linear-gradient(180deg,rgba(255,140,0,.35) 1px,transparent 1px),
-    radial-gradient(circle at 30% 30%,#ffe766,#ffc400);
+    linear-gradient(90deg,rgba(255,255,0,.35) 1px,transparent 1px),
+    linear-gradient(180deg,rgba(255,255,0,.35) 1px,transparent 1px),
+    radial-gradient(circle at 30% 30%,#333,#1c1c1c);
   background-size:80px 80px,80px 80px,cover;
   animation:gridMove 25s linear infinite;
 }
 .bg::after{
   content:"";position:absolute;inset:0;
-  background:radial-gradient(circle at 70% 60%,rgba(255,120,0,.35),transparent 60%);
+  background:radial-gradient(circle at 70% 60%,rgba(255,215,0,.2),transparent 60%);
   animation:pulse 6s ease-in-out infinite alternate;
 }
 @keyframes gridMove{0%{background-position:0 0,0 0,center}100%{background-position:400px 240px,240px 400px,center}}
-@keyframes pulse{from{opacity:.4}to{opacity:.8}}
+@keyframes pulse{from{opacity:.2}to{opacity:.5}}
 
-/* TOP BAR */
-.topbar{
-  position:absolute;top:32px;left:40px;
-  z-index:3;
+/* ===== HOME BUTTON ===== */
+.home{
+  position:fixed;top:24px;left:24px;z-index:3;
+  width:56px;height:56px;border-radius:18px;
+  background:rgba(255,255,255,.1);
+  backdrop-filter:blur(14px);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.3);
+  transition:.3s ease;
 }
-.topbar a{
-  padding:10px 22px;
-  border-radius:999px;
-  background:rgba(255,255,255,.35);
-  font-weight:700;
-  text-decoration:none;
-  color:#000;
-}
+.home:hover{transform:translateY(-4px)}
+.home svg{width:26px;height:26px;stroke:#ffd400;stroke-width:2;fill:none}
 
-/* CENTER */
+/* ===== WRAPPER ===== */
 .wrapper{
   position:relative;z-index:2;
-  height:100%;
-  display:flex;
-  flex-direction:column;
+  min-height:100%;
+  display:flex;flex-direction:column;
   align-items:center;
-  justify-content:center;
+  justify-content:flex-start;
+  padding-top: 40px;
   gap:36px;
 }
 
-/* ===== WRAPPER ===== */
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 2;
-  transform: translateY(-37.7px); /* posun nahoru */
-}
-  
+/* ===== LOGO ===== */
 .logo-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   animation: logoFloat 4.5s ease-in-out infinite;
 }
-
 .logo-wrapper img {
-  width: clamp(320px, 45vw, 450px); /* větší logo */
+  width: clamp(320px, 45vw, 450px);
   height: auto;
   margin-bottom: 12px;
 }
-
 .logo-wrapper small {
   font-size: 16px;
   font-weight: 600;
   letter-spacing: 2px;
-  color: rgba(0,0,0,0.65);
+  color: rgba(255,215,0,0.8);
 }
+@keyframes logoFloat {0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
-/* Float animace společně */
-@keyframes logoFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
+/* ===== CARD ===== */
 .card{
   width:100%;
   max-width:520px;
   padding:40px;
   border-radius:32px;
-  background:linear-gradient(180deg,rgba(255,255,255,.35),rgba(255,255,255,.16));
+  background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
   backdrop-filter:blur(20px);
   box-shadow:0 40px 90px rgba(0,0,0,.35);
+  color:#fff;
 }
-
 .card h1{
   font-size:28px;
   font-weight:900;
   margin-bottom:24px;
+  color:#ffd400;
 }
-
 .step{
   display:flex;
   gap:16px;
   margin-bottom:18px;
 }
-
 .step-number{
   min-width:34px;height:34px;
   border-radius:50%;
-  background:rgba(0,0,0,.1);
+  background:rgba(255,255,0,.4);
   display:flex;
   align-items:center;
   justify-content:center;
   font-weight:900;
+  color:#1c1c1c;
 }
-
 .step p{font-weight:600;line-height:1.5}
 
 .ip{
   margin-top:20px;
   padding:14px 18px;
   border-radius:16px;
-  background:rgba(255,255,255,.4);
+  background:rgba(255,255,0,0.9);
   font-weight:800;
   cursor:pointer;
   display:inline-block;
+  color:#1c1c1c;
 }
 
 .note{
@@ -141,7 +126,7 @@ body{height:100vh;background:#ffd400;overflow:hidden}
 @media (max-width: 480px) {
   .logo-wrapper img { width: 320px; }
   .logo-wrapper small { font-size: 14px; }
-  .login { padding: 32px; }
+  .card { padding:32px; }
 }
 </style>
 </head>
@@ -149,8 +134,8 @@ body{height:100vh;background:#ffd400;overflow:hidden}
 
 <div class="bg"></div>
 
-<div class="topbar">
-  <a href="index.html">← Back</a>
+<div class="home" onclick="location.href='index.html'">
+  <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
 </div>
 
 <div class="wrapper">
@@ -183,10 +168,8 @@ body{height:100vh;background:#ffd400;overflow:hidden}
     </div>
 
     <div class="ip" onclick="copyIP()">shipeastsmp.net</div>
-
     <div class="note">Klikni na IP pro zkopírování</div>
   </div>
-
 </div>
 
 <script>
