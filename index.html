@@ -62,7 +62,32 @@ body{height:100vh;background:#ffd400;overflow:hidden}
   gap:28px;
 }
 
-.logo{width:320px}
+/* ===== LOGO + TEXT FLOAT ===== */
+.logo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: logoFloat 4.5s ease-in-out infinite;
+}
+
+.logo-wrapper img {
+  width: clamp(320px, 45vw, 450px); /* větší logo */
+  height: auto;
+  margin-bottom: 12px;
+}
+
+.logo-wrapper small {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: rgba(0,0,0,0.65);
+}
+
+/* Float animace společně */
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
 
 .server-box{
   display:flex;gap:14px;align-items:center;
@@ -108,7 +133,8 @@ body{height:100vh;background:#ffd400;overflow:hidden}
 @media(max-width:900px){
   .grid{grid-template-columns:1fr}
   .card{height:140px}
-  .logo{width:320px}
+  .logo-wrapper img { width: 300px; }
+  .logo-wrapper small { font-size: 14px; }
   .header{flex-direction:column;gap:18px}
   .topbar{top:20px;right:20px}
 }
@@ -125,9 +151,11 @@ body{height:100vh;background:#ffd400;overflow:hidden}
 </div>
 
 <div class="wrapper">
-
+  <div class="logo-wrapper">
+    <img src="IMG_3811.png" alt="Shipeast SMP Logo">
+    <small>SURVIVAL | ECONOMY</small>
+  </div>
   <div class="header">
-    <img src="IMG_3811.png" class="logo" alt="Shipeast SMP">
     <div class="server-box" onclick="copyIP()">
       shipeastsmp.net <span>• 1.21.8</span>
     </div>
