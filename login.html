@@ -20,7 +20,8 @@ body {
   background: #ffd400;
   overflow: hidden;
 }
-  
+
+/* ===== HOME BUTTON ===== */
 .home-btn{
   position:fixed;
   top:28px;
@@ -37,7 +38,6 @@ body {
   transition:.3s cubic-bezier(.2,.8,.2,1);
   z-index:50;
 }
-
 .home-btn svg{
   width:22px;
   height:22px;
@@ -45,7 +45,6 @@ body {
   stroke:#000;
   stroke-width:2;
 }
-
 .home-btn:hover{
   transform:translateY(-4px) scale(1.05);
   box-shadow:0 30px 60px rgba(0,0,0,.35);
@@ -62,7 +61,6 @@ body {
   background-size: 80px 80px, 80px 80px, cover;
   animation: gridMove 25s linear infinite;
 }
-
 .motion-bg::after {
   content: "";
   position: absolute;
@@ -70,13 +68,11 @@ body {
   background: radial-gradient(circle at 70% 60%, rgba(255,120,0,0.35), transparent 60%);
   animation: pulse 6s ease-in-out infinite alternate;
 }
-
 @keyframes gridMove {
   0% { background-position: 0 0, 0 0, center; }
   50% { background-position: 200px 120px, 120px 200px, center; }
   100% { background-position: 400px 240px, 240px 400px, center; }
 }
-
 @keyframes pulse {
   from { opacity: 0.4; }
   to { opacity: 0.8; }
@@ -88,31 +84,27 @@ body {
   flex-direction: column;
   align-items: center;
   z-index: 2;
-  transform: translateY(-37.7px); /* posun nahoru */
+  transform: translateY(-37.7px);
 }
 
-/* ===== LOGO + TEXT FLOAT ===== */
+/* ===== LOGO ===== */
 .logo-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   animation: logoFloat 4.5s ease-in-out infinite;
 }
-
 .logo-wrapper img {
-  width: clamp(320px, 45vw, 450px); /* větší logo */
+  width: clamp(320px, 45vw, 450px);
   height: auto;
   margin-bottom: 12px;
 }
-
 .logo-wrapper small {
   font-size: 16px;
   font-weight: 600;
   letter-spacing: 2px;
   color: rgba(0,0,0,0.65);
 }
-
-/* Float animace společně */
 @keyframes logoFloat {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
@@ -124,15 +116,7 @@ body {
   max-width: 380px;
   padding: 42px;
   border-radius: 22px;
-
-  font-family: system-ui, -apple-system, BlinkMacSystemFont,
-               "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-
-  background: linear-gradient(
-    180deg,
-    rgba(255,255,255,0.30),
-    rgba(255,255,255,0.14)
-  );
+  background: linear-gradient(180deg, rgba(255,255,255,0.30), rgba(255,255,255,0.14));
   backdrop-filter: blur(20px);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.35),
@@ -145,7 +129,6 @@ body {
   position: relative;
   margin-bottom: 26px;
 }
-
 .field input {
   width: 100%;
   padding: 14px 42px 14px 0;
@@ -156,7 +139,6 @@ body {
   font-weight: 500;
   outline: none;
 }
-
 .field label {
   position: absolute;
   left: 0;
@@ -167,7 +149,6 @@ body {
   transition: 0.3s ease;
   font-weight: 500;
 }
-
 .field input:focus + label,
 .field input:valid + label {
   top: -6px;
@@ -175,7 +156,7 @@ body {
   color: #000;
 }
 
-/* ===== SHOW PASSWORD ICON (SVG) ===== */
+/* ===== SHOW PASSWORD ICON ===== */
 .toggle-password {
   position: absolute;
   right: 0;
@@ -187,14 +168,8 @@ body {
   opacity: 0.55;
   transition: opacity 0.2s ease;
 }
-
-.toggle-password:hover {
-  opacity: 0.9;
-}
-
-.toggle-password.active {
-  opacity: 1;
-}
+.toggle-password:hover { opacity: 0.9; }
+.toggle-password.active { opacity: 1; }
 
 /* ===== BUTTON ===== */
 button {
@@ -208,10 +183,7 @@ button {
   cursor: pointer;
   box-shadow: 0 10px 30px rgba(0,0,0,0.35);
 }
-
-button:active {
-  transform: scale(0.96);
-}
+button:active { transform: scale(0.96); }
 
 /* ===== MOBILE ===== */
 @media (max-width: 480px) {
@@ -257,10 +229,9 @@ button:active {
     </div>
 
     <button type="submit">Login</button>
-   
-    <!-- NOVÉ TLAČÍTKO -->
+
     <a href="signup.html" class="btn-link" style="display:block; text-align:center; margin-top:16px; color:#333; text-decoration:none; font-weight:500;">
-    Don't have account? Create Account
+      Don't have account? Create Account
     </a>
   </form>
 </div>
