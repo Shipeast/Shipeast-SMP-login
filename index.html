@@ -27,18 +27,20 @@ body{height:100vh;background:#1c1c1c;overflow:hidden}
 @keyframes gridMove{0%{background-position:0 0,0 0,center}100%{background-position:400px 240px,240px 400px,center}}
 @keyframes pulse{from{opacity:.2}to{opacity:.5}}
 
-/* ===== TOP BAR ICON ===== */
+/* ===== TOP ICON ===== */
 .topbar{
   position:absolute;top:32px;right:40px;
-  display:flex;gap:16px;
   z-index:3;
 }
 .topbar img{
-  width:48px;height:48px;
+  width:40px;
+  height:40px;
   cursor:pointer;
   transition:.25s ease;
 }
-.topbar img:hover{opacity:.8}
+.topbar img:hover{
+  transform:scale(1.1);
+}
 
 /* ===== CENTER ===== */
 .wrapper{
@@ -74,8 +76,6 @@ body{height:100vh;background:#1c1c1c;overflow:hidden}
 .server-box{
   display:flex;gap:14px;align-items:center;
   padding:14px 22px;
-  background:rgba(255,255,0,.2);
-  border-radius:20px;
   font-weight:800;
   color:#fff;
   cursor:pointer;
@@ -91,20 +91,16 @@ body{height:100vh;background:#1c1c1c;overflow:hidden}
 }
 .card{
   height:200px;
-  border-radius:32px;
-  background:rgba(255,255,255,.15);
-  backdrop-filter:blur(20px);
-  box-shadow:0 40px 90px rgba(0,0,0,.35);
+  border-radius:0;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:18px;
   cursor:pointer;
   transition:.4s cubic-bezier(.2,.8,.2,1);
 }
 .card:hover{transform:translateY(-14px)}
-.card img{width:100%;height:100%;object-fit:contain;border-radius:28px}
+.card img{width:100%;height:100%;object-fit:contain;border-radius:0}
 
 /* ===== MOBILE ===== */
 @media(max-width:900px){
@@ -121,7 +117,7 @@ body{height:100vh;background:#1c1c1c;overflow:hidden}
 <div class="bg"></div>
 
 <div class="topbar">
-  <img src="login_icon.png" alt="Login Icon" onclick="location.href='login.html'">
+  <img src="login_icon.png" alt="Login" onclick="location.href='login.html'">
 </div>
 
 <div class="wrapper">
