@@ -52,7 +52,40 @@ body{height:100vh;background:#ffd400;overflow:hidden}
   gap:36px;
 }
 
-.logo{width:320px}
+/* ===== WRAPPER ===== */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+  transform: translateY(-37.7px); /* posun nahoru */
+}
+  
+.logo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: logoFloat 4.5s ease-in-out infinite;
+}
+
+.logo-wrapper img {
+  width: clamp(320px, 45vw, 450px); /* větší logo */
+  height: auto;
+  margin-bottom: 12px;
+}
+
+.logo-wrapper small {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: rgba(0,0,0,0.65);
+}
+
+/* Float animace společně */
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
 
 .card{
   width:100%;
@@ -104,9 +137,11 @@ body{height:100vh;background:#ffd400;overflow:hidden}
   font-size:14px;
 }
 
-@media(max-width:600px){
-  .card{padding:28px}
-  .logo{width:320px}
+/* ===== MOBILE ===== */
+@media (max-width: 480px) {
+  .logo-wrapper img { width: 300px; }
+  .logo-wrapper small { font-size: 14px; }
+  .login { padding: 32px; }
 }
 </style>
 </head>
@@ -119,8 +154,10 @@ body{height:100vh;background:#ffd400;overflow:hidden}
 </div>
 
 <div class="wrapper">
-
-  <img src="IMG_3811.png" class="logo" alt="Shipeast SMP">
+  <div class="logo-wrapper">
+    <img src="IMG_3811.png" alt="Shipeast SMP Logo">
+    <small>SURVIVAL | ECONOMY</small>
+  </div>
 
   <div class="card">
     <h1>How to join</h1>
