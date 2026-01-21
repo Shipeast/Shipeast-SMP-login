@@ -71,7 +71,7 @@ body{height:100vh;background:#ffd400;overflow:hidden}
 }
 
 .logo-wrapper img {
-  width: clamp(320px, 45vw, 450px); /* větší logo */
+  width: clamp(320px, 45vw, 450px);
   height: auto;
   margin-bottom: 12px;
 }
@@ -83,7 +83,6 @@ body{height:100vh;background:#ffd400;overflow:hidden}
   color: rgba(0,0,0,0.65);
 }
 
-/* Float animace společně */
 @keyframes logoFloat {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
@@ -123,9 +122,10 @@ body{height:100vh;background:#ffd400;overflow:hidden}
 }
 .card:hover{transform:translateY(-14px)}
 
-.icon{
-  width:56px;height:56px;
-  stroke:#000;stroke-width:1.6;fill:none;
+.icon-img{
+  width:56px;
+  height:56px;
+  object-fit:contain;
 }
 .card span{font-weight:900;letter-spacing:1.2px}
 
@@ -164,17 +164,17 @@ body{height:100vh;background:#ffd400;overflow:hidden}
   <div class="grid">
 
     <div class="card" onclick="location.href='vip.html'">
-      <svg class="icon" viewBox="0 0 24 24"><path d="M3 7l4 10h10l4-10"/><path d="M7 7l5 6 5-6"/></svg>
+      <img src="vip.png" class="icon-img" alt="VIP">
       <span>VIP</span>
     </div>
 
     <div class="card" onclick="window.open('https://discord.gg/yourserver','_blank')">
-      <svg class="icon" viewBox="0 0 24 24"><path d="M18 9a5 5 0 0 0-4-2"/><path d="M6 9a5 5 0 0 1 4-2"/><path d="M8 15h8"/><circle cx="9" cy="13" r="1"/><circle cx="15" cy="13" r="1"/></svg>
+      <img src="dis.png" class="icon-img" alt="Discord">
       <span>DISCORD</span>
     </div>
 
     <div class="card" onclick="location.href='tut.html'">
-      <svg class="icon" viewBox="0 0 24 24"><path d="M4 19h16"/><path d="M6 17V7l6-4 6 4v10"/></svg>
+      <img src="tut.png" class="icon-img" alt="How to Join">
       <span>HOW TO JOIN</span>
     </div>
 
