@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shipeast SMP – Způsob platby</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,sans-serif}
+body{min-height:100vh;background:#1c1c1c;overflow:auto;color:#fff;}
+
+/* ===== BACKGROUND ===== */
+.bg{
+  position:fixed;inset:0;
+  background:
+    linear-gradient(90deg,rgba(255,255,0,.35) 1px,transparent 1px),
+    linear-gradient(180deg,rgba(255,255,0,.35) 1px,transparent 1px),
+    radial-gradient(circle at 30% 30%,#333,#1c1c1c);
+  background-size:80px 80px,80px 80px,cover;
+  animation:gridMove 25s linear infinite;
+}
+.bg::after{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 70% 60%,rgba(255,215,0,.2),transparent 60%);
+  animation:pulse 6s ease-in-out infinite alternate;
+}
+@keyframes gridMove{0%{background-position:0 0,0 0,center}100%{background-position:400px 240px,240px 400px,center}}
+@keyframes pulse{from{opacity:.2}to{opacity:.5}}
+
+/* ===== HOME BUTTON ===== */
+.home{
+  position:fixed;top:24px;left:24px;z-index:3;
+  width:56px;height:56px;border-radius:18px;
+  background:rgba(255,255,255,.1);
+  backdrop-filter:blur(14px);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.3);
+  transition:.3s ease;
+}
+.home:hover{transform:translateY(-4px)}
+.home svg{width:26px;height:26px;stroke:#ffd400;stroke-width:2;fill:none}
+
+/* ===== WRAPPER ===== */
+.wrapper{
+  position:relative;z-index:2;
+  min-height:100%;
+  display:flex;flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  padding-top: 40px;
+  gap:26px;
+}
+
+/* ===== LOGO ===== */
+.logo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: logoFloat 4.5s ease-in-out infinite;
+}
+.logo-wrapper img {
+  width: clamp(320px, 45vw, 450px);
+  height: auto;
+  margin-bottom: 12px;
+}
+.logo-wrapper small {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: rgba(255,215,0,0.8);
+}
+@keyframes logoFloat {0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+/* ===== PAYMENT GRID ===== */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:24px;
+  max-width:800px;
+  width:100%;
+  padding:0 20px;
+}
+.payment-card{
+  background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
+  backdrop-filter:blur(20px);
+  box-shadow:0 30px 80px rgba(0,0,0,.35);
+  border-radius:28px;
+  padding:28px;
+  text-align:center;
+  cursor:pointer;
+  transition:.3s ease;
+}
+.payment-card:hover{transform:translateY(-6px)}
+.payment-card h2{
+  font-size:22px;
+  color:#ffd400;
+  margin-bottom:12px;
+}
+.payment-card p{
+  color:#fff;
+  font-weight:600;
+  margin-bottom:16px;
+}
+.payment-card .notice{
+  background:rgba(255,0,0,.2);
+  color:#ff4d4d;
+  font-weight:700;
+  padding:10px 14px;
+  border-radius:12px;
+  font-size:14px;
+}
+
+/* ===== BUTTON ===== */
+button{
+  padding:14px 22px;
+  border:none;
+  border-radius:50px;
+  background:linear-gradient(135deg,#ffd400,#ffb300);
+  font-weight:700;
+  font-size:16px;
+  cursor:pointer;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+  color:#1c1c1c;
+}
+button:active{transform:scale(.97)}
+
+@media(max-width:700px){
+  .grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+
+<div class="home" onclick="location.href='index.html'">
+  <svg viewBox="0 0 24 24">
+    <path d="M3 11l9-8 9 8"/>
+    <path d="M5 10v10h14V10"/>
+  </svg>
+</div>
+
+<div class="wrapper">
+  <div class="logo-wrapper">
+    <img src="vip.png" alt="VIP Logo">
+    <small>VYBER ZPŮSOB PLATBY</small>
+  </div>
+
+  <div class="grid">
+    <!-- Bankovní převod -->
+    <div class="payment-card" onclick="location.href='bank.html'">
+      <h2>Bankovní převod</h2>
+      <p>Převod přímo na účet</p>
+      <p class="price">50 Kč / měsíc<br>150 Kč / rok</p>
+    </div>
+
+    <!-- Platba kartou -->
+    <div class="payment-card" onclick="alert('Platba kartou bude vyřízena přes Discord!')">
+      <h2>Platba kartou</h2>
+      <p>Vyřízení přes Discord</p>
+      <div class="notice">Kontaktujte nás na Discordu</div>
+    </div>
+
+    <!-- Paypal -->
+    <div class="payment-card" onclick="alert('Paypal platba bude vyřízena přes Discord!')">
+      <h2>Paypal</h2>
+      <p>Vyřízení přes Discord</p>
+      <div class="notice">Kontaktujte nás na Discordu</div>
+    </div>
+
+    <!-- Paysafe -->
+    <div class="payment-card" onclick="alert('Paysafe platba bude vyřízena přes Discord!')">
+      <h2>Paysafe</h2>
+      <p>Vyřízení přes Discord</p>
+      <div class="notice">Kontaktujte nás na Discordu</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
