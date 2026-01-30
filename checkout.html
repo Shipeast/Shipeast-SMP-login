@@ -3,111 +3,138 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VIP Checkout</title>
-<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+<title>Shipeast SMP – Checkout</title>
 
 <style>
-body{
-  margin:0;
-  font-family:Inter,system-ui,sans-serif;
-  background:#1c1c1c;
-  color:#fff;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,sans-serif}
+body{min-height:100vh;background:#1c1c1c;color:#fff;overflow:auto}
+
+/* ===== BACKGROUND ===== */
+.bg{
+  position:fixed;inset:0;
+  background:
+    linear-gradient(90deg,rgba(255,255,0,.35) 1px,transparent 1px),
+    linear-gradient(180deg,rgba(255,255,0,.35) 1px,transparent 1px),
+    radial-gradient(circle at 30% 30%,#333,#1c1c1c);
+  background-size:80px 80px,80px 80px,cover;
+  animation:gridMove 25s linear infinite;
+}
+@keyframes gridMove{
+  0%{background-position:0 0,0 0,center}
+  100%{background-position:400px 240px,240px 400px,center}
+}
+
+/* ===== HOME BUTTON ===== */
+.home{
+  position:fixed;top:24px;left:24px;z-index:3;
+  width:56px;height:56px;border-radius:18px;
+  background:rgba(255,255,255,.1);
+  backdrop-filter:blur(14px);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.3);
+  transition:.3s ease;
+}
+.home:hover{transform:translateY(-4px)}
+.home svg{width:26px;height:26px;stroke:#ffd400;stroke-width:2;fill:none}
+
+/* ===== WRAPPER ===== */
+.wrapper{
+  position:relative;z-index:2;
   min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:40px 20px;
 }
 
-.box{
-  background:rgba(255,255,255,.05);
+/* ===== CARD ===== */
+.card{
+  width:100%;max-width:400px;
   padding:40px;
-  border-radius:20px;
-  width:100%;
-  max-width:380px;
+  border-radius:28px;
+  background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
   backdrop-filter:blur(20px);
-  box-shadow:0 30px 80px rgba(0,0,0,.4);
+  box-shadow:0 30px 80px rgba(0,0,0,.35);
 }
 
-h1{
-  margin-bottom:24px;
-  font-size:22px;
+.card h1{
   text-align:center;
+  margin-bottom:24px;
+  color:#ffd400;
+  letter-spacing:1px;
 }
 
-input{
+/* ===== INPUTS ===== */
+.field{margin-bottom:22px}
+.field input{
   width:100%;
   padding:14px;
-  margin-bottom:16px;
+  border-radius:12px;
   border:none;
-  border-bottom:2px solid rgba(255,255,255,.3);
-  background:transparent;
+  background:rgba(255,255,255,.1);
   color:#fff;
   font-size:15px;
 }
 
-button{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:50px;
-  background:#ffd400;
-  font-weight:700;
-  cursor:pointer;
+/* ===== ACCOUNT BOX ===== */
+.account-box{
   margin-top:10px;
+  padding:16px;
+  border-radius:16px;
+  background:rgba(255,212,0,.1);
+  border:1px solid rgba(255,212,0,.4);
+  text-align:center;
+  cursor:pointer;
+  font-weight:700;
+  letter-spacing:1px;
 }
-
-#qr{
-  margin-top:25px;
-  display:flex;
-  justify-content:center;
-}
+.account-box:hover{background:rgba(255,212,0,.2)}
 
 .note{
-  text-align:center;
-  opacity:.7;
-  font-size:13px;
   margin-top:14px;
+  font-size:14px;
+  color:#ccc;
+  text-align:center;
 }
 </style>
 </head>
 
 <body>
 
-<div class="box">
-  <h1>VIP Payment</h1>
+<div class="bg"></div>
 
-  <input type="email" id="email" placeholder="Email" required>
-  <input type="text" id="nick" placeholder="Minecraft nickname" required>
+<div class="home" onclick="location.href='index.html'">
+  <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+</div>
 
-  <button onclick="generateQR()">Generate Payment</button>
+<div class="wrapper">
+  <div class="card">
+    <h1>Platba VIP</h1>
 
-  <div id="qr"></div>
-  <div class="note">Naskenuj QR kód v mobilním bankovnictví</div>
+    <div class="field">
+      <input type="email" id="email" placeholder="Tvůj email">
+    </div>
+
+    <div class="field">
+      <input type="text" id="name" placeholder="Herní jméno">
+    </div>
+
+    <div class="account-box" id="account">
+      103724597/0100
+    </div>
+
+    <div class="note">
+      Klikni na číslo účtu pro zkopírování.<br>
+      Do zprávy pro příjemce napiš:<br>
+      <b>Email, Herní jméno</b>
+    </div>
+  </div>
 </div>
 
 <script>
-function generateQR(){
-  const email = document.getElementById('email').value.trim();
-  const nick  = document.getElementById('nick').value.trim();
-
-  if(!email || !nick){
-    alert("Vyplň email i nickname");
-    return;
-  }
-
-  // ===== SPD QR Platba formát =====
-  // ACC = účet příjemce
-  // MSG = zpráva pro příjemce
-  const spd = `SPD*1.0*ACC:CZ590100000000103724597*CC:CZK*MSG:${email},${nick}`;
-
-  const qrDiv = document.getElementById('qr');
-  qrDiv.innerHTML = "";
-
-  QRCode.toCanvas(spd, { width: 220 }, function (err, canvas) {
-    if (err) console.error(err);
-    qrDiv.appendChild(canvas);
-  });
-}
+document.getElementById("account").addEventListener("click", () => {
+  navigator.clipboard.writeText("103724597/0100");
+  alert("Číslo účtu zkopírováno");
+});
 </script>
 
 </body>
