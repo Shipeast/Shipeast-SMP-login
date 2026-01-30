@@ -89,6 +89,9 @@ body{min-height:100vh;background:#1c1c1c;overflow:auto;color:#fff;}
   text-align:center;
   cursor:pointer;
   transition:.3s ease;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
 }
 .payment-card:hover{transform:translateY(-6px)}
 .payment-card h2{
@@ -108,11 +111,17 @@ body{min-height:100vh;background:#1c1c1c;overflow:auto;color:#fff;}
   padding:10px 14px;
   border-radius:12px;
   font-size:14px;
+  margin-bottom:16px;
+}
+.payment-card .price{
+  font-weight:700;
+  font-size:16px;
+  margin-bottom:16px;
 }
 
 /* ===== BUTTON ===== */
-button{
-  padding:14px 22px;
+.payment-card button{
+  padding:12px 20px;
   border:none;
   border-radius:50px;
   background:linear-gradient(135deg,#ffd400,#ffb300);
@@ -121,8 +130,11 @@ button{
   cursor:pointer;
   box-shadow:0 10px 30px rgba(0,0,0,.35);
   color:#1c1c1c;
+  transition:.25s ease;
+  margin-bottom:8px;
 }
-button:active{transform:scale(.97)}
+.payment-card button:hover{transform:scale(1.05)}
+.payment-card button:active{transform:scale(.97)}
 
 @media(max-width:700px){
   .grid{grid-template-columns:1fr}
@@ -148,31 +160,37 @@ button:active{transform:scale(.97)}
 
   <div class="grid">
     <!-- Bankovní převod -->
-    <div class="payment-card" onclick="location.href='bank.html'">
+    <div class="payment-card">
       <h2>Bankovní převod</h2>
       <p>Převod přímo na účet</p>
       <p class="price">50 Kč / měsíc<br>150 Kč / rok</p>
+      <div class="notice">Vyřízení platby můžete také přes Discord</div>
+      <button onclick="location.href='bank.html'">Zvolit Bankovní převod</button>
+      <button onclick="window.open('https://discord.com/invite/67RBYPmby','_blank')">Kontaktovat přes Discord</button>
     </div>
 
     <!-- Platba kartou -->
-    <div class="payment-card" onclick="alert('Platba kartou bude vyřízena přes Discord!')">
+    <div class="payment-card">
       <h2>Platba kartou</h2>
       <p>Vyřízení přes Discord</p>
       <div class="notice">Kontaktujte nás na Discordu</div>
+      <button onclick="window.open('https://discord.com/invite/67RBYPmby','_blank')">Zvolit Platbu kartou</button>
     </div>
 
     <!-- Paypal -->
-    <div class="payment-card" onclick="alert('Paypal platba bude vyřízena přes Discord!')">
+    <div class="payment-card">
       <h2>Paypal</h2>
       <p>Vyřízení přes Discord</p>
       <div class="notice">Kontaktujte nás na Discordu</div>
+      <button onclick="window.open('https://discord.com/invite/67RBYPmby','_blank')">Zvolit Paypal</button>
     </div>
 
     <!-- Paysafe -->
-    <div class="payment-card" onclick="alert('Paysafe platba bude vyřízena přes Discord!')">
+    <div class="payment-card">
       <h2>Paysafe</h2>
       <p>Vyřízení přes Discord</p>
       <div class="notice">Kontaktujte nás na Discordu</div>
+      <button onclick="window.open('https://discord.com/invite/67RBYPmby','_blank')">Zvolit Paysafe</button>
     </div>
   </div>
 </div>
