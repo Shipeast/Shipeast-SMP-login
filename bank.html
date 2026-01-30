@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shipeast SMP – Checkout</title>
+<title>Shipeast SMP – Bankovní převod</title>
 
 <style>
 * { box-sizing: border-box; font-family: Inter, system-ui, sans-serif; margin: 0; padding: 0; }
@@ -45,31 +45,37 @@ body { min-height: 100vh; background: #1c1c1c; color: #fff; display: flex; flex-
 }
 .wrapper h1 { color:#ffd400; text-align:center; margin-bottom:24px; font-size:28px; }
 
-/* CHECKOUT CARD */
-.checkout-card{
+/* BANK TRANSFER CARD */
+.transfer-card{
   width:100%; padding:36px 28px; border-radius:28px;
   background: rgba(255,255,255,0.05); 
   backdrop-filter: blur(24px); box-shadow:0 25px 70px rgba(0,0,0,.4);
   display:flex; flex-direction: column; gap:18px;
 }
-.checkout-card .label { font-weight:600; opacity:0.8; }
-.checkout-card .account {
-  background: rgba(255,255,0,.15); padding:14px 18px; border-radius:16px; font-weight:700; color:#1c1c1c; cursor:pointer;
+.transfer-card .label { font-weight:600; opacity:0.8; color:#fff; }
+.transfer-card .account {
+  background: rgba(255,255,255,.15); padding:14px 18px; border-radius:16px; font-weight:700; color:#fff; cursor:pointer;
   text-align:center; transition:.2s;
 }
-.checkout-card .account:hover { background: rgba(255,255,0,.25); }
+.transfer-card .account:hover { background: rgba(255,255,255,.25); }
 
 /* INSTRUCTION */
-.checkout-card .instruction {
+.transfer-card .instruction {
   margin-top:10px; font-weight:700; color:#ff4c4c; text-align:center; font-size:15px;
   background: rgba(0,0,0,.2); padding:10px 12px; border-radius:12px;
 }
 
 /* PRICES */
-.prices { margin-top:20px; text-align:center; }
-.prices div { margin:6px 0; font-weight:700; font-size:16px; color:#ffd400; }
+.prices { margin-top:20px; display:flex; justify-content: center; gap:16px; flex-wrap: wrap; }
+.price-box {
+  background: linear-gradient(135deg, #ffd400, #ffb300);
+  color:#1c1c1c; font-weight:700; font-size:16px;
+  padding:12px 18px; border-radius:16px; display:flex; align-items:center; gap:6px;
+  box-shadow:0 8px 20px rgba(0,0,0,.35); cursor:default;
+}
+.price-box span { font-size:14px; opacity:.8; }
 
-/* BUY BUTTON */
+/* CONFIRM BUTTON */
 .buy-btn{
   margin-top:28px; padding:16px; border:none; border-radius:50px;
   background: linear-gradient(135deg,#ffd400,#ffb300); color:#1c1c1c;
@@ -93,22 +99,22 @@ body { min-height: 100vh; background: #1c1c1c; color: #fff; display: flex; flex-
 </div>
 
 <div class="wrapper">
-  <h1>Checkout VIP</h1>
+  <h1>Bankovní převod VIP</h1>
 
-  <div class="checkout-card">
+  <div class="transfer-card">
     <div class="label">Číslo účtu (klikni pro kopírování):</div>
     <div class="account" id="accountNumber">103724597/0100</div>
     
     <div class="instruction">
-      Napište do zprávy pro příjemce: <strong>Email a Herní jméno</strong>
+      Do zprávy pro příjemce napište: <strong>Email a Herní jméno</strong>
     </div>
 
     <div class="prices">
-      <div>50 Kč / měsíc</div>
-      <div>150 Kč / rok</div>
+      <div class="price-box">💰 50 Kč <span>/ měsíc</span></div>
+      <div class="price-box">💰 150 Kč <span>/ rok</span></div>
     </div>
 
-    <div class="buy-btn" onclick="copyAndNotify()">Koupit VIP</div>
+    <div class="buy-btn" onclick="copyAndNotify()">Potvrdit platbu</div>
   </div>
 </div>
 
