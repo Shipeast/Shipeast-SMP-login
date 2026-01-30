@@ -3,165 +3,122 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="format-detection" content="telephone=no">
 <title>Shipeast SMP – Checkout</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,sans-serif}
-body{min-height:100vh;background:#1c1c1c;overflow:auto;color:#fff}
+* { box-sizing: border-box; font-family: Inter, system-ui, sans-serif; margin: 0; padding: 0; }
+body { min-height: 100vh; background: #1c1c1c; color: #fff; display: flex; flex-direction: column; align-items: center; overflow: auto; }
 
-/* ===== BACKGROUND ===== */
+/* BACKGROUND */
 .bg{
-  position:fixed;inset:0;
+  position: fixed; inset: 0;
   background:
-    linear-gradient(90deg,rgba(255,255,0,.35) 1px,transparent 1px),
-    linear-gradient(180deg,rgba(255,255,0,.35) 1px,transparent 1px),
-    radial-gradient(circle at 30% 30%,#333,#1c1c1c);
-  background-size:80px 80px,80px 80px,cover;
-  animation:gridMove 25s linear infinite;
+    linear-gradient(90deg, rgba(255,255,0,.35) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255,255,0,.35) 1px, transparent 1px),
+    radial-gradient(circle at 30% 30%, #333, #1c1c1c);
+  background-size: 80px 80px, 80px 80px, cover;
+  animation: gridMove 25s linear infinite;
 }
 .bg::after{
-  content:"";position:absolute;inset:0;
-  background:radial-gradient(circle at 70% 60%,rgba(255,215,0,.2),transparent 60%);
-  animation:pulse 6s ease-in-out infinite alternate;
+  content:""; position:absolute; inset:0;
+  background: radial-gradient(circle at 70% 60%, rgba(255,215,0,.2), transparent 60%);
+  animation: pulse 6s ease-in-out infinite alternate;
 }
-@keyframes gridMove{0%{background-position:0 0,0 0,center}100%{background-position:400px 240px,240px 400px,center}}
-@keyframes pulse{from{opacity:.2}to{opacity:.5}}
+@keyframes gridMove {0%{background-position:0 0,0 0,center} 100%{background-position:400px 240px,240px 400px,center}}
+@keyframes pulse {from{opacity:.2} to{opacity:.5}}
 
-/* ===== HOME BUTTON ===== */
-.home{
-  position:fixed;top:24px;left:24px;z-index:3;
-  width:56px;height:56px;border-radius:18px;
-  background:rgba(255,255,255,.1);
-  backdrop-filter:blur(14px);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.3);
+/* HOME BUTTON */
+.home-btn{
+  position: fixed; top:28px; left:28px; width:52px; height:52px;
+  border-radius:16px; background: linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.05));
+  backdrop-filter: blur(14px); display:flex; justify-content:center; align-items:center;
+  box-shadow:0 20px 40px rgba(0,0,0,.25); cursor:pointer; transition:.3s;
+  z-index:50;
 }
-.home svg{width:26px;height:26px;stroke:#ffd400;stroke-width:2;fill:none}
+.home-btn svg { width:22px; height:22px; fill:none; stroke:#ffd400; stroke-width:2; }
+.home-btn:hover { transform: translateY(-4px) scale(1.05); box-shadow:0 30px 60px rgba(0,0,0,.35); }
 
-/* ===== WRAPPER ===== */
+/* WRAPPER */
 .wrapper{
-  position:relative;z-index:2;
-  min-height:100vh;
-  display:flex;flex-direction:column;
-  align-items:center;
-  padding-top:120px;
+  display: flex; flex-direction: column; align-items: center; z-index:2; padding: 40px 20px 60px 20px;
+  width: 100%; max-width: 480px;
 }
+.wrapper h1 { color:#ffd400; text-align:center; margin-bottom:24px; }
 
-/* ===== CARD ===== */
-.card{
-  width:100%;max-width:400px;
-  padding:40px;
-  border-radius:28px;
-  background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
-  backdrop-filter:blur(20px);
-  box-shadow:0 30px 80px rgba(0,0,0,.35);
+/* INFO BOX */
+.checkout-card{
+  width:100%; padding:36px 28px; border-radius:28px;
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+  backdrop-filter: blur(20px); box-shadow:0 30px 80px rgba(0,0,0,.35);
+  display:flex; flex-direction: column; gap:18px;
 }
-
-.card h1{
+.checkout-card .label { font-weight:600; opacity:0.8; }
+.checkout-card .account {
+  background: rgba(255,255,0,.2); padding:14px 18px; border-radius:16px; font-weight:800; color:#1c1c1c; cursor:pointer;
   text-align:center;
-  color:#ffd400;
-  margin-bottom:24px;
 }
+.checkout-card .account:hover { background: rgba(255,255,0,.35); }
+.checkout-card .instruction { margin-top:10px; font-weight:700; color:#ffd400; text-align:center; }
 
-.price-box{
-  text-align:center;
-  margin-bottom:20px;
-  font-weight:800;
-  font-size:16px;
-  color:#ffd400;
-  line-height:1.6;
-}
+/* PRICES */
+.prices { margin-top:20px; text-align:center; }
+.prices div { margin:6px 0; font-weight:700; font-size:16px; color:#ffd400; }
 
-/* ===== INPUTS ===== */
-.field{margin-bottom:16px}
-.field input{
+/* BUY BUTTON */
+.buy-btn{
+  margin-top:28px; padding:16px; border:none; border-radius:50px;
+  background: linear-gradient(135deg,#ffd400,#ffb300); color:#1c1c1c;
+  font-weight:800; font-size:16px; cursor:pointer; box-shadow:0 12px 40px rgba(0,0,0,.4);
   width:100%;
-  padding:14px 16px;
-  border-radius:12px;
-  border:none;
-  background:rgba(255,255,255,.1);
-  color:#fff;
-  font-size:14px;
-}
-
-/* ===== ACCOUNT BOX ===== */
-.account-box{
-  margin-top:14px;
-  padding:16px;
-  border-radius:14px;
   text-align:center;
-  font-weight:800;
-  letter-spacing:1px;
-  font-size:18px;
-  background:rgba(255,255,0,.2);
-  cursor:pointer;
 }
+.buy-btn:active { transform:scale(.97); }
 
-/* ===== IMPORTANT NOTE ===== */
-.important-note{
-  margin-top:18px;
-  padding:16px;
-  border-radius:14px;
-  background:rgba(255,0,0,.15);
-  border:1px solid rgba(255,0,0,.5);
-  text-align:center;
-  font-weight:700;
-  color:#ff4d4d;
-}
-.important-note span{
-  display:block;
-  margin-top:6px;
-  font-size:16px;
-  color:#fff;
-}
-
-@media(max-width:600px){
-  .card{padding:28px}
-}
 </style>
 </head>
 <body>
 
 <div class="bg"></div>
 
-<div class="home" onclick="location.href='index.html'">
-  <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+<!-- HOME BUTTON -->
+<div class="home-btn" onclick="location.href='index.html'" aria-label="Home">
+  <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg>
 </div>
 
 <div class="wrapper">
-  <div class="card">
-    <h1>Platba VIP</h1>
+  <h1>Checkout VIP</h1>
 
-    <div class="price-box">
-      50 Kč / měsíc<br>
-      150 Kč / rok
+  <div class="checkout-card">
+    <div class="label">Číslo účtu (klikni pro kopírování):</div>
+    <div class="account" id="accountNumber">103724597/0100</div>
+    
+    <div class="instruction">
+      Do zprávy pro příjemce napište <br> <strong>Email a Herní jméno</strong>
     </div>
 
-    <div class="field">
-      <input type="email" placeholder="Tvůj email">
+    <div class="prices">
+      <div>50 Kč / měsíc</div>
+      <div>150 Kč / rok</div>
     </div>
 
-    <div class="field">
-      <input type="text" placeholder="Herní jméno">
-    </div>
-
-    <div class="account-box" onclick="copyAccount()">
-      103724597/0100
-    </div>
-
-    <div class="important-note">
-      ⚠️ POVINNÉ DO ZPRÁVY PRO PŘÍJEMCE:
-      <span>Email, Herní jméno</span>
-    </div>
-
+    <div class="buy-btn" onclick="copyAndNotify()">Koupit VIP</div>
   </div>
 </div>
 
 <script>
-function copyAccount(){
-  navigator.clipboard.writeText("103724597/0100");
-  alert("Číslo účtu zkopírováno");
+// Kopírování čísla účtu
+const accountEl = document.getElementById('accountNumber');
+accountEl.addEventListener('click', () => {
+  navigator.clipboard.writeText(accountEl.textContent).then(() => {
+    alert("Číslo účtu zkopírováno do schránky!");
+  });
+});
+
+// Simulace BUY tlačítka (pro přesměrování, v reálu jen upozornění)
+function copyAndNotify() {
+  navigator.clipboard.writeText(accountEl.textContent).then(() => {
+    alert("Číslo účtu zkopírováno. Do zprávy pro příjemce napište Email a Herní jméno.");
+  });
 }
 </script>
 
