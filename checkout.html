@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIP Checkout</title>
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
+<style>
+body{
+  margin:0;
+  font-family:Inter,system-ui,sans-serif;
+  background:#1c1c1c;
+  color:#fff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+}
+
+.box{
+  background:rgba(255,255,255,.05);
+  padding:40px;
+  border-radius:20px;
+  width:100%;
+  max-width:380px;
+  backdrop-filter:blur(20px);
+  box-shadow:0 30px 80px rgba(0,0,0,.4);
+}
+
+h1{
+  margin-bottom:24px;
+  font-size:22px;
+  text-align:center;
+}
+
+input{
+  width:100%;
+  padding:14px;
+  margin-bottom:16px;
+  border:none;
+  border-bottom:2px solid rgba(255,255,255,.3);
+  background:transparent;
+  color:#fff;
+  font-size:15px;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:50px;
+  background:#ffd400;
+  font-weight:700;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+#qr{
+  margin-top:25px;
+  display:flex;
+  justify-content:center;
+}
+
+.note{
+  text-align:center;
+  opacity:.7;
+  font-size:13px;
+  margin-top:14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h1>VIP Payment</h1>
+
+  <input type="email" id="email" placeholder="Email" required>
+  <input type="text" id="nick" placeholder="Minecraft nickname" required>
+
+  <button onclick="generateQR()">Generate Payment</button>
+
+  <div id="qr"></div>
+  <div class="note">Naskenuj QR kód v mobilním bankovnictví</div>
+</div>
+
+<script>
+function generateQR(){
+  const email = document.getElementById('email').value.trim();
+  const nick  = document.getElementById('nick').value.trim();
+
+  if(!email || !nick){
+    alert("Vyplň email i nickname");
+    return;
+  }
+
+  // ===== SPD QR Platba formát =====
+  // ACC = účet příjemce
+  // MSG = zpráva pro příjemce
+  const spd = `SPD*1.0*ACC:CZ590100000000103724597*CC:CZK*MSG:${email},${nick}`;
+
+  const qrDiv = document.getElementById('qr');
+  qrDiv.innerHTML = "";
+
+  QRCode.toCanvas(spd, { width: 220 }, function (err, canvas) {
+    if (err) console.error(err);
+    qrDiv.appendChild(canvas);
+  });
+}
+</script>
+
+</body>
+</html>
