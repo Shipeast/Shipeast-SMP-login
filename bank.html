@@ -6,132 +6,200 @@
 <title>Shipeast SMP – Bankovní převod</title>
 
 <style>
-* { box-sizing: border-box; font-family: Inter, system-ui, sans-serif; margin: 0; padding: 0; }
-body { min-height: 100vh; background: #1c1c1c; color: #fff; display: flex; flex-direction: column; align-items: center; overflow: auto; }
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,sans-serif}
+body{min-height:100vh;background:#1c1c1c;overflow:auto;color:#fff;}
 
-/* BACKGROUND */
+/* ===== BACKGROUND ===== */
 .bg{
-  position: fixed; inset: 0;
+  position:fixed;inset:0;
   background:
-    linear-gradient(90deg, rgba(255,255,0,.25) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(255,255,0,.25) 1px, transparent 1px),
-    radial-gradient(circle at 30% 30%, #222, #1c1c1c);
-  background-size: 80px 80px, 80px 80px, cover;
-  animation: gridMove 25s linear infinite;
+    linear-gradient(90deg,rgba(255,255,0,.35) 1px,transparent 1px),
+    linear-gradient(180deg,rgba(255,255,0,.35) 1px,transparent 1px),
+    radial-gradient(circle at 30% 30%,#333,#1c1c1c);
+  background-size:80px 80px,80px 80px,cover;
+  animation:gridMove 25s linear infinite;
 }
 .bg::after{
-  content:""; position:absolute; inset:0;
-  background: radial-gradient(circle at 70% 60%, rgba(255,215,0,.15), transparent 60%);
-  animation: pulse 6s ease-in-out infinite alternate;
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 70% 60%,rgba(255,215,0,.2),transparent 60%);
+  animation:pulse 6s ease-in-out infinite alternate;
 }
-@keyframes gridMove {0%{background-position:0 0,0 0,center} 100%{background-position:400px 240px,240px 400px,center}}
-@keyframes pulse {from{opacity:.15} to{opacity:.35}}
+@keyframes gridMove{0%{background-position:0 0,0 0,center}100%{background-position:400px 240px,240px 400px,center}}
+@keyframes pulse{from{opacity:.2}to{opacity:.5}}
 
-/* HOME BUTTON */
-.home-btn{
-  position: fixed; top:28px; left:28px; width:52px; height:52px;
-  border-radius:16px; background: linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
-  backdrop-filter: blur(14px); display:flex; justify-content:center; align-items:center;
-  box-shadow:0 15px 35px rgba(0,0,0,.3); cursor:pointer; transition:.3s;
-  z-index:50;
+/* ===== HOME BUTTON ===== */
+.home{
+  position:fixed;top:24px;left:24px;z-index:3;
+  width:56px;height:56px;border-radius:18px;
+  background:rgba(255,255,255,.1);
+  backdrop-filter:blur(14px);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.3);
+  transition:.3s ease;
 }
-.home-btn svg { width:22px; height:22px; fill:none; stroke:#ffd400; stroke-width:2; }
-.home-btn:hover { transform: translateY(-3px) scale(1.05); box-shadow:0 25px 50px rgba(0,0,0,.35); }
+.home:hover{transform:translateY(-4px)}
+.home svg{width:26px;height:26px;stroke:#ffd400;stroke-width:2;fill:none}
 
-/* WRAPPER */
+/* ===== WRAPPER ===== */
 .wrapper{
-  display: flex; flex-direction: column; align-items: center; z-index:2; padding: 60px 20px 60px 20px;
-  width: 100%; max-width: 480px;
-}
-.wrapper h1 { color:#ffd400; text-align:center; margin-bottom:24px; font-size:28px; }
-
-/* BANK TRANSFER CARD */
-.transfer-card{
-  width:100%; padding:36px 28px; border-radius:28px;
-  background: rgba(255,255,255,0.05); 
-  backdrop-filter: blur(24px); box-shadow:0 25px 70px rgba(0,0,0,.4);
-  display:flex; flex-direction: column; gap:18px;
-}
-.transfer-card .label { font-weight:600; opacity:0.8; color:#fff; }
-.transfer-card .account {
-  background: rgba(255,255,255,.15); padding:14px 18px; border-radius:16px; font-weight:700; color:#fff; cursor:pointer;
-  text-align:center; transition:.2s;
-}
-.transfer-card .account:hover { background: rgba(255,255,255,.25); }
-
-/* INSTRUCTION */
-.transfer-card .instruction {
-  margin-top:10px; font-weight:700; color:#ff4c4c; text-align:center; font-size:15px;
-  background: rgba(0,0,0,.2); padding:10px 12px; border-radius:12px;
+  position:relative;z-index:2;
+  min-height:100%;
+  display:flex;flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  padding-top: 40px;
+  gap:26px;
 }
 
-/* PRICES */
-.prices { margin-top:20px; display:flex; justify-content: center; gap:16px; flex-wrap: wrap; }
-.price-box {
-  background: linear-gradient(135deg, #ffd400, #ffb300);
-  color:#1c1c1c; font-weight:700; font-size:16px;
-  padding:12px 18px; border-radius:16px; display:flex; align-items:center; gap:6px;
-  box-shadow:0 8px 20px rgba(0,0,0,.35); cursor:default;
+/* ===== LOGO ===== */
+.logo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: logoFloat 4.5s ease-in-out infinite;
 }
-.price-box span { font-size:14px; opacity:.8; }
+.logo-wrapper img {
+  width: clamp(320px, 45vw, 450px);
+  height: auto;
+  margin-bottom: 12px;
+}
+.logo-wrapper small {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: rgba(255,215,0,0.8);
+}
+@keyframes logoFloat {0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
-/* CONFIRM BUTTON */
-.buy-btn{
-  margin-top:28px; padding:16px; border:none; border-radius:50px;
-  background: linear-gradient(135deg,#ffd400,#ffb300); color:#1c1c1c;
-  font-weight:800; font-size:16px; cursor:pointer; box-shadow:0 12px 40px rgba(0,0,0,.4);
-  width:100%;
+/* ===== BANK TRANSFER CARD ===== */
+.bank-card{
+  width:100%;max-width:380px;
+  padding:40px 44px;
+  border-radius:28px;
+  background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
+  backdrop-filter:blur(20px);
+  box-shadow:0 30px 80px rgba(0,0,0,.35);
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+.bank-card h1{
   text-align:center;
-  transition:.2s;
+  font-size:26px;
+  letter-spacing:1px;
+  color:#ffd400;
 }
-.buy-btn:hover { transform: translateY(-2px) scale(1.02); box-shadow:0 18px 50px rgba(0,0,0,.45); }
-.buy-btn:active { transform: scale(.97); }
+.bank-card .price{
+  text-align:center;
+  font-weight:800;
+  color:#fff;
+}
+.bank-card .price span{
+  display:block;
+  margin-top:6px;
+  font-size:14px;
+  color:#ffd400;
+}
+.bank-card .notice{
+  background:rgba(255,0,0,.2);
+  padding:12px 16px;
+  border-radius:12px;
+  font-weight:700;
+  text-align:center;
+  color:#ff4d4d;
+}
+.bank-card .account{
+  background:rgba(255,255,255,.12);
+  padding:16px;
+  border-radius:16px;
+  text-align:center;
+  font-weight:700;
+  font-size:18px;
+  cursor:pointer;
+  color:#fff;
+}
+.bank-card .instructions{
+  text-align:center;
+  font-weight:700;
+  font-size:14px;
+  color:#ffd400;
+  margin-top:4px;
+}
 
+/* ===== BUTTON ===== */
+button{
+  padding:16px;
+  border:none;
+  border-radius:50px;
+  background:linear-gradient(135deg,#ffd400,#ffb300);
+  font-weight:800;
+  font-size:16px;
+  cursor:pointer;
+  box-shadow:0 12px 40px rgba(0,0,0,.4);
+  color:#1c1c1c;
+  margin-top:10px;
+}
+button:active{transform:scale(.97)}
+
+@media(max-width:600px){
+  .logo-wrapper img { width: 320px; }
+  .logo-wrapper small { font-size: 14px; }
+  .bank-card{padding:32px}
+}
 </style>
 </head>
 <body>
 
 <div class="bg"></div>
 
-<!-- HOME BUTTON -->
-<div class="home-btn" onclick="location.href='index.html'" aria-label="Home">
-  <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg>
+<div class="home" onclick="location.href='index.html'">
+  <svg viewBox="0 0 24 24">
+    <path d="M3 11l9-8 9 8"/>
+    <path d="M5 10v10h14V10"/>
+  </svg>
 </div>
 
 <div class="wrapper">
-  <h1>Bankovní převod VIP</h1>
+  <div class="logo-wrapper">
+    <img src="vip.png" alt="VIP Logo">
+    <small>BANKOVNÍ PŘEVOD</small>
+  </div>
 
-  <div class="transfer-card">
-    <div class="label">Číslo účtu (klikni pro kopírování):</div>
-    <div class="account" id="accountNumber">103724597/0100</div>
-    
-    <div class="instruction">
-      Do zprávy pro příjemce napište: <strong>Email a Herní jméno</strong>
+  <div class="bank-card">
+    <h1>Bankovní převod VIP</h1>
+
+    <div class="price">
+      50 Kč / měsíc
+      <span>150 Kč / rok</span>
     </div>
 
-    <div class="prices">
-      <div class="price-box">💰 50 Kč <span>/ měsíc</span></div>
-      <div class="price-box">💰 150 Kč <span>/ rok</span></div>
+    <div class="notice">
+      Do zprávy pro příjemce napište <strong>Email, Herní jméno</strong>
     </div>
 
-    <div class="buy-btn" onclick="copyAndNotify()">Potvrdit platbu</div>
+    <div class="account" onclick="copyAccount()">
+      103724597/0100
+    </div>
+
+    <div class="instructions">
+      Klikni na číslo účtu pro kopírování
+    </div>
+
+    <button onclick="alert('Pokračujte ve svém internetovém bankovnictví a vložte číslo účtu')">
+      Pokračovat
+    </button>
   </div>
 </div>
 
 <script>
-// Kopírování čísla účtu
-const accountEl = document.getElementById('accountNumber');
-accountEl.addEventListener('click', () => {
-  navigator.clipboard.writeText(accountEl.textContent).then(() => {
-    alert("Číslo účtu zkopírováno do schránky!");
-  });
-});
-
-// Simulace BUY tlačítka
-function copyAndNotify() {
-  navigator.clipboard.writeText(accountEl.textContent).then(() => {
-    alert("Číslo účtu zkopírováno.\nDo zprávy pro příjemce napište Email a Herní jméno.");
-  });
+function copyAccount(){
+  const el=document.createElement('input');
+  el.value='103724597/0100';
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+  alert('Číslo účtu zkopírováno: 103724597/0100');
 }
 </script>
 
