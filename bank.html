@@ -27,7 +27,7 @@ body{min-height:100vh;background:#1c1c1c;overflow:auto;color:#fff}
 @keyframes gridMove{0%{background-position:0 0,0 0,center}100%{background-position:400px 240px,240px 400px,center}}
 @keyframes pulse{from{opacity:.2}to{opacity:.5}}
 
-/* ===== HOME BUTTON ===== */
+/* HOME */
 .home{
   position:fixed;top:24px;left:24px;z-index:3;
   width:56px;height:56px;border-radius:18px;
@@ -35,23 +35,40 @@ body{min-height:100vh;background:#1c1c1c;overflow:auto;color:#fff}
   backdrop-filter:blur(14px);
   display:flex;align-items:center;justify-content:center;
   cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.3);
-  transition:.3s ease;
 }
-.home:hover{transform:translateY(-4px)}
 .home svg{width:26px;height:26px;stroke:#ffd400;stroke-width:2;fill:none}
 
-/* ===== WRAPPER ===== */
+/* WRAPPER */
 .wrapper{
   position:relative;z-index:2;
   min-height:100%;
-  display:flex;flex-direction:column;
+  display:flex;
+  flex-direction:column;
   align-items:center;
-  justify-content:flex-start;
   padding-top:60px;
-  gap:28px;
+  gap:26px;
 }
 
-/* ===== CARD (STEJNÁ JAKO PAYPAL) ===== */
+/* LOGO */
+.logo-wrapper{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  animation:logoFloat 4.5s ease-in-out infinite;
+}
+.logo-wrapper img{
+  width:clamp(320px,45vw,450px);
+  height:auto;
+}
+.logo-wrapper small{
+  margin-top:10px;
+  font-size:15px;
+  letter-spacing:2px;
+  color:rgba(255,215,0,.8);
+}
+@keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+/* CARD */
 .card{
   width:100%;max-width:400px;
   padding:42px;
@@ -62,18 +79,9 @@ body{min-height:100vh;background:#1c1c1c;overflow:auto;color:#fff}
   text-align:center;
 }
 
-.card h1{
-  font-size:26px;
-  margin-bottom:18px;
-  color:#ffd400;
-}
+.card h1{font-size:26px;margin-bottom:18px;color:#ffd400}
 
-.price-box{
-  display:flex;
-  gap:14px;
-  justify-content:center;
-  margin-bottom:22px;
-}
+.price-box{display:flex;gap:14px;justify-content:center;margin-bottom:22px}
 .price{
   padding:10px 16px;
   border-radius:14px;
@@ -82,7 +90,6 @@ body{min-height:100vh;background:#1c1c1c;overflow:auto;color:#fff}
   color:#ffd400;
 }
 
-/* ČERVENÉ UPOZORNĚNÍ */
 .note{
   background:rgba(255,0,0,.15);
   border:1px solid rgba(255,0,0,.4);
@@ -93,7 +100,6 @@ body{min-height:100vh;background:#1c1c1c;overflow:auto;color:#fff}
   color:#ff4d4d;
 }
 
-/* ÚČET */
 .account{
   background:rgba(255,255,255,.12);
   padding:16px;
@@ -105,29 +111,18 @@ body{min-height:100vh;background:#1c1c1c;overflow:auto;color:#fff}
   margin-bottom:10px;
 }
 
-.copy-info{
-  font-size:13px;
-  opacity:.7;
-  margin-bottom:22px;
-}
+.copy-info{font-size:13px;opacity:.7;margin-bottom:22px}
 
-/* BUTTON */
 .pay-btn{
-  display:block;
   width:100%;
   padding:16px;
   border:none;border-radius:50px;
   background:linear-gradient(135deg,#ffd400,#ffb300);
   font-weight:800;font-size:16px;
   cursor:pointer;
-  box-shadow:0 12px 40px rgba(0,0,0,.4);
   color:#1c1c1c;
 }
 .pay-btn:active{transform:scale(.97)}
-
-@media(max-width:600px){
-  .card{padding:32px}
-}
 </style>
 </head>
 <body>
@@ -139,8 +134,14 @@ body{min-height:100vh;background:#1c1c1c;overflow:auto;color:#fff}
 </div>
 
 <div class="wrapper">
+
+  <div class="logo-wrapper">
+    <img src="vip.png" alt="VIP Logo">
+    <small>BANKOVNÍ PŘEVOD</small>
+  </div>
+
   <div class="card">
-    <h1>Bankovní převod</h1>
+    <h1>Platba převodem</h1>
 
     <div class="price-box">
       <div class="price">50 Kč / měsíc</div>
@@ -152,10 +153,8 @@ body{min-height:100vh;background:#1c1c1c;overflow:auto;color:#fff}
       <strong>Email + Herní jméno</strong>
     </div>
 
-    <div class="account" onclick="copyAccount()">
-      103724597/0100
-    </div>
-    <div class="copy-info">Klikni na číslo účtu pro kopírování</div>
+    <div class="account" onclick="copyAccount()">103724597/0100</div>
+    <div class="copy-info">Klikni pro zkopírování čísla účtu</div>
 
     <button class="pay-btn" onclick="alert('Otevři své bankovnictví a vlož číslo účtu')">
       Pokračovat k platbě
