@@ -7,7 +7,7 @@
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,sans-serif}
-body{min-height:100vh;background:#1c1c1c;overflow:auto;color:#fff}
+body{min-height:100vh;background:#1c1c1c;overflow:auto;color:#fff;}
 
 /* ===== BACKGROUND ===== */
 .bg{
@@ -27,7 +27,7 @@ body{min-height:100vh;background:#1c1c1c;overflow:auto;color:#fff}
 @keyframes gridMove{0%{background-position:0 0,0 0,center}100%{background-position:400px 240px,240px 400px,center}}
 @keyframes pulse{from{opacity:.2}to{opacity:.5}}
 
-/* ===== HOME BUTTON (STEJNÝ) ===== */
+/* ===== HOME BUTTON ===== */
 .home{
   position:fixed;top:24px;left:24px;z-index:3;
   width:56px;height:56px;border-radius:18px;
@@ -47,67 +47,88 @@ body{min-height:100vh;background:#1c1c1c;overflow:auto;color:#fff}
   display:flex;flex-direction:column;
   align-items:center;
   justify-content:flex-start;
-  padding-top:60px;
-  gap:28px;
+  padding-top:40px;
+  gap:26px;
 }
 
-/* ===== CARD ===== */
-.card{
-  width:100%;max-width:400px;
-  padding:42px;
+/* ===== LOGO ===== */
+.logo-wrapper{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  animation:logoFloat 4.5s ease-in-out infinite;
+}
+.logo-wrapper img{
+  width:clamp(320px,45vw,450px);
+  height:auto;
+  margin-bottom:12px;
+}
+.logo-wrapper small{
+  font-size:16px;
+  font-weight:600;
+  letter-spacing:2px;
+  color:rgba(255,215,0,0.8);
+}
+@keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+/* ===== PAYPAL CARD ===== */
+.paypal-card{
+  width:100%;max-width:380px;
+  padding:40px 44px;
   border-radius:28px;
   background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
   backdrop-filter:blur(20px);
   box-shadow:0 30px 80px rgba(0,0,0,.35);
-  text-align:center;
-}
-
-.card h1{
-  font-size:26px;
-  margin-bottom:18px;
-  color:#ffd400;
-}
-
-.price-box{
   display:flex;
-  gap:14px;
-  justify-content:center;
-  margin-bottom:22px;
+  flex-direction:column;
+  gap:20px;
 }
-.price{
-  padding:10px 16px;
-  border-radius:14px;
-  background:rgba(255,215,0,.15);
-  font-weight:800;
+.paypal-card h1{
+  text-align:center;
+  font-size:26px;
+  letter-spacing:1px;
   color:#ffd400;
 }
 
-.note{
-  background:rgba(255,0,0,.15);
-  border:1px solid rgba(255,0,0,.4);
-  padding:14px;
-  border-radius:14px;
+.price{
+  text-align:center;
+  font-weight:800;
+  color:#fff;
+}
+.price span{
+  display:block;
+  margin-top:6px;
+  font-size:14px;
+  color:#ffd400;
+}
+
+.notice{
+  background:rgba(255,0,0,.2);
+  padding:12px 16px;
+  border-radius:12px;
   font-weight:700;
-  margin-bottom:22px;
+  text-align:center;
   color:#ff4d4d;
 }
 
-.pay-btn{
-  display:block;
-  width:100%;
+button{
   padding:16px;
-  border:none;border-radius:50px;
+  border:none;
+  border-radius:50px;
   background:linear-gradient(135deg,#ffd400,#ffb300);
-  font-weight:800;font-size:16px;
+  font-weight:800;
+  font-size:16px;
   cursor:pointer;
   box-shadow:0 12px 40px rgba(0,0,0,.4);
   color:#1c1c1c;
-  text-decoration:none;
+  margin-top:10px;
 }
-.pay-btn:active{transform:scale(.97)}
+button:active{transform:scale(.97)}
 
 @media(max-width:600px){
-  .card{padding:32px}
+  .logo-wrapper img{width:320px;}
+  .logo-wrapper small{font-size:14px;}
+  .paypal-card{padding:32px}
 }
 </style>
 </head>
@@ -116,26 +137,33 @@ body{min-height:100vh;background:#1c1c1c;overflow:auto;color:#fff}
 <div class="bg"></div>
 
 <div class="home" onclick="location.href='index.html'">
-  <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+  <svg viewBox="0 0 24 24">
+    <path d="M3 11l9-8 9 8"/>
+    <path d="M5 10v10h14V10"/>
+  </svg>
 </div>
 
 <div class="wrapper">
-  <div class="card">
-    <h1>PayPal Platba</h1>
+  <div class="logo-wrapper">
+    <img src="vip.png" alt="VIP Logo">
+    <small>PAYPAL PLATBA</small>
+  </div>
 
-    <div class="price-box">
-      <div class="price">50 Kč / měsíc</div>
-      <div class="price">150 Kč / rok</div>
+  <div class="paypal-card">
+    <h1>PayPal VIP</h1>
+
+    <div class="price">
+      50 Kč / měsíc
+      <span>150 Kč / rok</span>
     </div>
 
-    <div class="note">
-      DO POZNÁMKY PLATBY NAPIŠ:<br>
-      <strong>Email + Herní jméno</strong>
+    <div class="notice">
+      Po platbě napiš na Discord a pošli <strong>Email + Herní jméno</strong>
     </div>
 
-    <a class="pay-btn" href="https://www.paypal.me/shipeast" target="_blank">
+    <button onclick="window.open('https://www.paypal.me/shipeast','_blank')">
       Zaplatit přes PayPal
-    </a>
+    </button>
   </div>
 </div>
 
