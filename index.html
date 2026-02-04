@@ -4,139 +4,87 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shipeast SMP</title>
-
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,sans-serif}
 body{min-height:100vh;background:#1c1c1c;overflow-y:auto}
 
 /* ===== BACKGROUND ===== */
 .bg{
-  position:fixed;inset:0;
-  background:
-    linear-gradient(90deg,rgba(255,255,0,.35) 1px,transparent 1px),
-    linear-gradient(180deg,rgba(255,255,0,.35) 1px,transparent 1px),
-    radial-gradient(circle at 30% 30%,#333,#1c1c1c);
-  background-size:80px 80px,80px 80px,cover;
-  animation:gridMove 25s linear infinite;
+ position:fixed;inset:0;
+ background: linear-gradient(90deg,rgba(255,255,0,.35) 1px,transparent 1px), 
+            linear-gradient(180deg,rgba(255,255,0,.35) 1px,transparent 1px),
+            radial-gradient(circle at 30% 30%,#333,#1c1c1c);
+ background-size:80px 80px,80px 80px,cover;
+ animation:gridMove 25s linear infinite;
 }
-@keyframes gridMove{0%{background-position:0 0,0 0,center}100%{background-position:400px 240px,240px 400px,center}}
+.bg::after{
+ content:"";position:absolute;inset:0;
+ background:radial-gradient(circle at 70% 60%,rgba(255,215,0,.2),transparent 60%);
+ animation:pulse 6s ease-in-out infinite alternate;
+}
+@keyframes gridMove{
+0%{background-position:0 0,0 0,center}
+100%{background-position:400px 240px,240px 400px,center}
+}
+@keyframes pulse{from{opacity:.2}to{opacity:.5}}
 
-/* ===== CONTENT ===== */
-.wrapper{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:40px;padding-top:120px}
-.logo-wrapper{display:flex;flex-direction:column;align-items:center;animation:logoFloat 4.5s ease-in-out infinite}
-.logo-wrapper img{width:clamp(320px,45vw,450px);margin-bottom:12px}
-.logo-wrapper small{font-size:16px;font-weight:600;letter-spacing:2px;color:rgba(255,215,0,.8)}
-@keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+/* ===== CENTER ===== */
+.wrapper{
+ position:relative;z-index:2; min-height:100%;
+ display:flex; flex-direction:column;
+ align-items:center; justify-content:flex-start; gap:40px;
+ padding-top:120px;
+}
+.logo-wrapper {
+ display: flex; flex-direction: column; align-items: center;
+ animation: logoFloat 4.5s ease-in-out infinite;
+}
+.logo-wrapper img { width: clamp(320px, 45vw, 450px); height: auto; margin-bottom: 12px; }
+.logo-wrapper small { font-size: 16px; font-weight: 600; letter-spacing: 2px; color: rgba(255,215,0,0.8); }
+@keyframes logoFloat {0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.server-box{ display:flex;gap:14px;align-items:center; padding:14px 22px; background:rgba(255,215,0,.2); border-radius:20px; font-weight:800; color:#fff; cursor:pointer; }
+.server-box span{opacity:.7;font-weight:600}
 
-.server-box{padding:14px 22px;background:rgba(255,215,0,.2);border-radius:20px;font-weight:800;color:#fff;cursor:pointer}
+/* ===== BUTTON GRID ===== */
+.grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:28px; max-width:960px; margin-top:40px; }
+.card{ height:400px; border-radius:32px; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; transition:.4s cubic-bezier(.2,.8,.2,1); }
+.card:hover{transform:translateY(-14px)}
+.card img{width:100%;height:100%;object-fit:contain;border-radius:0}
 
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;max-width:1100px;margin-top:40px}
-.card{height:480px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.35s}
-.card:hover{transform:translateY(-12px) scale(1.05)}
-.card img{width:100%;height:100%;object-fit:contain}
-@media(max-width:900px){.grid{grid-template-columns:1fr}.card{height:320px}}
-
-/* DARKNESS LAYER */
-#lightOverlay{position:fixed;inset:0;pointer-events:none;z-index:5}
+/* ===== MOBILE ===== */
+@media(max-width:900px){
+ .grid{grid-template-columns:1fr}
+ .card{height:300px}
+ .logo-wrapper img { width: 320px; }
+ .logo-wrapper small { font-size: 14px; }
+}
 </style>
 </head>
 <body>
-
 <div class="bg"></div>
-<canvas id="lightOverlay"></canvas>
-
 <div class="wrapper">
-  <div class="logo-wrapper">
-    <img src="logo.png">
-    <small>SURVIVAL | ECONOMY</small>
-  </div>
-
-  <div class="server-box" onclick="navigator.clipboard.writeText('shipeastsmp.net')">
-    shipeastsmp.net • 1.21.8
-  </div>
-
-  <div class="grid">
-    <div class="card" onclick="location.href='vip.html'"><img src="vip.png"></div>
-    <div class="card" onclick="window.open('https://discord.gg/67RBYPmby','_blank')"><img src="dis.png"></div>
-    <div class="card" onclick="location.href='tut.html'"><img src="tut.png"></div>
-  </div>
+ <div class="logo-wrapper">
+  <img src="logo.png" alt="Shipeast SMP Logo">
+  <small>SURVIVAL | ECONOMY</small>
+ </div>
+ <div class="server-box" onclick="copyIP()">
+  shipeastsmp.net <span>• 1.21.8</span>
+ </div>
+ <div class="grid">
+  <div class="card" onclick="location.href='vip.html'"><img src="vip.png" alt="VIP"></div>
+  <div class="card" onclick="window.open('https://discord.gg/67RBYPmby','_blank')"><img src="dis.png" alt="Discord"></div>
+  <div class="card" onclick="location.href='tut.html'"><img src="tut.png" alt="How to Join"></div>
+ </div>
 </div>
-
 <script>
-const canvas=document.getElementById("lightOverlay");
-const ctx=canvas.getContext("2d");
-let w,h;
-function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight}
-resize();addEventListener("resize",resize);
-
-const lanternImg=new Image();
-lanternImg.src="lantern.png";
-
-let mouse={x:w/2,y:h/2,px:w/2};
-let active=false;
-
-document.addEventListener("mouseenter",()=>active=true);
-document.addEventListener("mouseleave",()=>active=false);
-document.addEventListener("mousemove",e=>{
-  mouse.px=mouse.x;
-  mouse.x=e.clientX;
-  mouse.y=e.clientY;
-});
-
-/* ===== PENDULUM PHYSICS ===== */
-let angle=0;          // current swing angle
-let angleVel=0;       // angular velocity
-const gravity=0.015;  // pull strength
-const damping=0.985;  // air resistance
-const length=110;     // chain length
-
-function updatePhysics(){
-  const mouseSpeed=(mouse.x-mouse.px)*0.002;
-  angleVel+=mouseSpeed;               // user impulse
-  angleVel+=-gravity*Math.sin(angle); // gravity restoring force
-  angleVel*=damping;                  // damping
-  angle+=angleVel;
+function copyIP(){
+ const el=document.createElement('input');
+ el.value='shipeastsmp.net';
+ document.body.appendChild(el);
+ el.select();
+ document.execCommand('copy');
+ document.body.removeChild(el);
 }
-
-function draw(){
-  ctx.clearRect(0,0,w,h);
-
-  // permanent darkness
-  ctx.fillStyle="rgba(0,0,0,.72)";
-  ctx.fillRect(0,0,w,h);
-
-  if(!active) return;
-
-  const anchorX=mouse.x;
-  const anchorY=mouse.y+18;
-
-  const lx=anchorX + Math.sin(angle)*length;
-  const ly=anchorY + Math.cos(angle)*length;
-
-  // LIGHT
-  let g=ctx.createRadialGradient(lx,ly,90,lx,ly,420);
-  g.addColorStop(0,"rgba(255,230,150,1)");
-  g.addColorStop(.5,"rgba(255,210,120,.5)");
-  g.addColorStop(1,"rgba(0,0,0,0)");
-  ctx.globalCompositeOperation="destination-out";
-  ctx.fillStyle=g;
-  ctx.beginPath();ctx.arc(lx,ly,420,0,Math.PI*2);ctx.fill();
-  ctx.globalCompositeOperation="source-over";
-
-  // CHAIN
-  ctx.strokeStyle="#ffd400";
-  ctx.lineWidth=2;
-  ctx.beginPath();
-  ctx.moveTo(anchorX,anchorY);
-  ctx.lineTo(lx,ly);
-  ctx.stroke();
-
-  ctx.drawImage(lanternImg,lx-30,ly-30,60,60);
-}
-
-function loop(){updatePhysics();draw();requestAnimationFrame(loop)}
-loop();
 </script>
-
 </body>
 </html>
