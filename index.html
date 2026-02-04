@@ -47,14 +47,23 @@ body{min-height:100vh;background:#1c1c1c;overflow-y:auto}
 
 /* ===== BUTTON GRID ===== */
 .grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:28px; max-width:960px; margin-top:40px; }
-.card{ height:400px; border-radius:32px; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; transition:.4s cubic-bezier(.2,.8,.2,1); }
+.card{
+    height:800px; /* zvětšeno 2x pro PC */
+    border-radius:32px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition:.4s cubic-bezier(.2,.8,.2,1);
+}
 .card:hover{transform:translateY(-14px)}
 .card img{width:100%;height:100%;object-fit:contain;border-radius:0}
 
 /* ===== MOBILE ===== */
 @media(max-width:900px){
  .grid{grid-template-columns:1fr}
- .card{height:300px}
+ .card{height:300px;} /* původní výška pro mobil */
  .logo-wrapper img { width: 320px; }
  .logo-wrapper small { font-size: 14px; }
 }
