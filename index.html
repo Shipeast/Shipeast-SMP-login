@@ -48,7 +48,7 @@ body{min-height:100vh;background:#1c1c1c;overflow-y:auto}
 /* ===== BUTTON GRID ===== */
 .grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:28px; max-width:960px; margin-top:40px; }
 .card{
-    height:800px; /* zvětšeno 2x pro PC */
+    height:800px; /* vyšší karta pro PC */
     border-radius:32px;
     display:flex;
     flex-direction:column;
@@ -58,12 +58,18 @@ body{min-height:100vh;background:#1c1c1c;overflow-y:auto}
     transition:.4s cubic-bezier(.2,.8,.2,1);
 }
 .card:hover{transform:translateY(-14px)}
-.card img{width:100%;height:100%;object-fit:contain;border-radius:0}
+.card img{
+    max-width:90%;   /* zvětšení obrázku v rámci karty */
+    max-height:90%;
+    object-fit:contain;
+    border-radius:0;
+}
 
 /* ===== MOBILE ===== */
 @media(max-width:900px){
  .grid{grid-template-columns:1fr}
  .card{height:300px;} /* původní výška pro mobil */
+ .card img{max-width:100%; max-height:100%;} /* obrázek zachová původní velikost */
  .logo-wrapper img { width: 320px; }
  .logo-wrapper small { font-size: 14px; }
 }
