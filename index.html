@@ -30,21 +30,12 @@ body{min-height:100vh;background:#1c1c1c;overflow-y:auto}
 /* ===== CENTER ===== */
 .wrapper{
   position:relative;z-index:2;
-  min-height:100%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:flex-start;
-  gap:40px;
+  display:flex;flex-direction:column;
+  align-items:center;gap:40px;
   padding-top:120px;
 }
 
-.logo-wrapper {
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  animation:logoFloat 4.5s ease-in-out infinite;
-}
+.logo-wrapper{display:flex;flex-direction:column;align-items:center;animation:logoFloat 4.5s ease-in-out infinite}
 .logo-wrapper img{width:clamp(320px,45vw,450px);margin-bottom:12px}
 .logo-wrapper small{font-size:16px;font-weight:600;letter-spacing:2px;color:rgba(255,215,0,.8)}
 @keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
@@ -56,34 +47,36 @@ body{min-height:100vh;background:#1c1c1c;overflow-y:auto}
   border-radius:20px;
   font-weight:800;color:#fff;cursor:pointer;
 }
-.server-box span{opacity:.7;font-weight:600}
 
+/* ===== BIG BUTTONS ===== */
 .grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:28px;
-  max-width:960px;
+  gap:40px;
+  max-width:1100px;
   margin-top:40px;
 }
 .card{
-  height:400px;border-radius:32px;
+  height:480px;
   display:flex;align-items:center;justify-content:center;
-  cursor:pointer;transition:.4s cubic-bezier(.2,.8,.2,1);
+  cursor:pointer;
+  transition:.35s ease;
 }
-.card:hover{transform:translateY(-14px)}
+.card:hover{transform:translateY(-12px) scale(1.04)}
 .card img{width:100%;height:100%;object-fit:contain}
 
 @media(max-width:900px){
   .grid{grid-template-columns:1fr}
-  .card{height:300px}
+  .card{height:320px}
 }
 
-/* ===== LANTERN OVERLAY ===== */
+/* ===== LANTERN CANVAS ===== */
 #lightOverlay{
-  position:fixed;
-  inset:0;
-  z-index:5;
+  position:fixed;inset:0;
   pointer-events:none;
+  z-index:5;
+  opacity:0;
+  transition:opacity .4s ease;
 }
 </style>
 </head>
@@ -94,12 +87,12 @@ body{min-height:100vh;background:#1c1c1c;overflow-y:auto}
 
 <div class="wrapper">
   <div class="logo-wrapper">
-    <img src="logo.png" alt="Shipeast SMP Logo">
+    <img src="logo.png">
     <small>SURVIVAL | ECONOMY</small>
   </div>
 
-  <div class="server-box" onclick="copyIP()">
-    shipeastsmp.net <span>• 1.21.8</span>
+  <div class="server-box" onclick="navigator.clipboard.writeText('shipeastsmp.net')">
+    shipeastsmp.net • 1.21.8
   </div>
 
   <div class="grid">
@@ -110,86 +103,66 @@ body{min-height:100vh;background:#1c1c1c;overflow-y:auto}
 </div>
 
 <script>
-function copyIP(){
-  navigator.clipboard.writeText("shipeastsmp.net");
-}
-
-/* ===== LANTERN SYSTEM ===== */
 const canvas=document.getElementById("lightOverlay");
 const ctx=canvas.getContext("2d");
-let w,h;
-function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight}
-resize();addEventListener("resize",resize);
+let w,h;function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight}resize();addEventListener("resize",resize);
 
 const lanternImg=new Image();
 lanternImg.src="lantern.png";
 
-let mouse={x:w/2,y:h/2,vx:0,vy:0};
-addEventListener("mousemove",e=>{
-  mouse.vx=e.movementX;
-  mouse.vy=e.movementY;
+let mouseActive=false;
+let mouse={x:0,y:0};
+
+document.addEventListener("mouseenter",()=>{mouseActive=true;canvas.style.opacity=1});
+document.addEventListener("mouseleave",()=>{mouseActive=false;canvas.style.opacity=0});
+
+document.addEventListener("mousemove",e=>{
   mouse.x=e.clientX;
   mouse.y=e.clientY;
 });
 
-let segments=12,length=8;
-let rope=[];
-for(let i=0;i<segments;i++){
-  rope.push({x:mouse.x,y:mouse.y+i*length,oldx:mouse.x,oldy:mouse.y+i*length});
-}
+/* ===== SOFT ROPE ===== */
+let ropeY=0, swing=0, vel=0;
 
 function update(){
-  rope[0].x=mouse.x;
-  rope[0].y=mouse.y-6;
+  if(!mouseActive) return;
 
-  for(let i=1;i<segments;i++){
-    let p=rope[i];
-    let vx=(p.x-p.oldx)*0.998;
-    let vy=(p.y-p.oldy)*0.998+0.25;
-    p.oldx=p.x;p.oldy=p.y;
-    p.x+=vx;p.y+=vy;
-  }
+  const targetY=mouse.y+90; // lantern hangs lower
+  ropeY += (targetY-ropeY)*0.08;
 
-  rope[segments-1].x+=mouse.vx*0.015;
-  rope[segments-1].y+=Math.min(Math.hypot(mouse.vx,mouse.vy)*0.04,2);
-
-  for(let k=0;k<4;k++){
-    for(let i=1;i<segments;i++){
-      let p=rope[i],prev=rope[i-1];
-      let dx=prev.x-p.x,dy=prev.y-p.y;
-      let dist=Math.sqrt(dx*dx+dy*dy);
-      let diff=(dist-length)/dist;
-      p.x+=dx*diff*0.5;p.y+=dy*diff*0.5;
-    }
-  }
+  const targetSwing=(mouse.x-w/2)/w;
+  vel+=(targetSwing-swing)*0.02;
+  vel*=0.92;
+  swing+=vel;
 }
 
 function draw(){
   ctx.clearRect(0,0,w,h);
-  ctx.fillStyle="rgba(0,0,0,.55)";
+  if(!mouseActive) return;
+
+  ctx.fillStyle="rgba(0,0,0,.6)";
   ctx.fillRect(0,0,w,h);
 
-  let lx=rope[segments-1].x,ly=rope[segments-1].y;
+  let lx=mouse.x + swing*60;
+  let ly=ropeY;
 
-  let g=ctx.createRadialGradient(lx,ly,80,lx,ly,320);
-  g.addColorStop(0,"rgba(255,230,150,.95)");
-  g.addColorStop(.4,"rgba(255,210,120,.55)");
+  let g=ctx.createRadialGradient(lx,ly,80,lx,ly,360);
+  g.addColorStop(0,"rgba(255,230,150,1)");
+  g.addColorStop(.5,"rgba(255,210,120,.6)");
   g.addColorStop(1,"rgba(0,0,0,0)");
   ctx.globalCompositeOperation="destination-out";
   ctx.fillStyle=g;
-  ctx.beginPath();
-  ctx.arc(lx,ly,320,0,Math.PI*2);
-  ctx.fill();
+  ctx.beginPath();ctx.arc(lx,ly,360,0,Math.PI*2);ctx.fill();
   ctx.globalCompositeOperation="source-over";
 
-  ctx.strokeStyle="rgba(255,215,0,.9)";
+  ctx.strokeStyle="#ffd400";
   ctx.lineWidth=2;
   ctx.beginPath();
-  ctx.moveTo(rope[0].x,rope[0].y);
-  for(let i=1;i<segments;i++) ctx.lineTo(rope[i].x,rope[i].y);
+  ctx.moveTo(mouse.x,mouse.y);
+  ctx.lineTo(lx,ly-20);
   ctx.stroke();
 
-  ctx.drawImage(lanternImg,lx-28,ly-28,56,56);
+  ctx.drawImage(lanternImg,lx-30,ly-30,60,60);
 }
 
 function loop(){update();draw();requestAnimationFrame(loop)}
