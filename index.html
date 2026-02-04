@@ -27,7 +27,7 @@ body{min-height:100vh;background:#1c1c1c;overflow-y:auto}
 @keyframes gridMove{0%{background-position:0 0,0 0,center}100%{background-position:400px 240px,240px 400px,center}}
 @keyframes pulse{from{opacity:.2}to{opacity:.5}}
 
-/* ===== CENTER ===== */
+/* ===== CONTENT ===== */
 .wrapper{
   position:relative;z-index:2;
   display:flex;flex-direction:column;
@@ -41,14 +41,13 @@ body{min-height:100vh;background:#1c1c1c;overflow-y:auto}
 @keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
 .server-box{
-  display:flex;gap:14px;align-items:center;
   padding:14px 22px;
   background:rgba(255,215,0,.2);
   border-radius:20px;
   font-weight:800;color:#fff;cursor:pointer;
 }
 
-/* ===== BIG BUTTONS ===== */
+/* BIG BUTTONS */
 .grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -56,21 +55,13 @@ body{min-height:100vh;background:#1c1c1c;overflow-y:auto}
   max-width:1100px;
   margin-top:40px;
 }
-.card{
-  height:480px;
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;
-  transition:.35s ease;
-}
-.card:hover{transform:translateY(-12px) scale(1.04)}
+.card{height:480px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.35s}
+.card:hover{transform:translateY(-12px) scale(1.05)}
 .card img{width:100%;height:100%;object-fit:contain}
 
-@media(max-width:900px){
-  .grid{grid-template-columns:1fr}
-  .card{height:320px}
-}
+@media(max-width:900px){.grid{grid-template-columns:1fr}.card{height:320px}}
 
-/* ===== LANTERN CANVAS ===== */
+/* OVERLAY */
 #lightOverlay{
   position:fixed;inset:0;
   pointer-events:none;
@@ -110,59 +101,68 @@ let w,h;function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight}
 const lanternImg=new Image();
 lanternImg.src="lantern.png";
 
-let mouseActive=false;
+let active=false;
 let mouse={x:0,y:0};
 
-document.addEventListener("mouseenter",()=>{mouseActive=true;canvas.style.opacity=1});
-document.addEventListener("mouseleave",()=>{mouseActive=false;canvas.style.opacity=0});
+document.addEventListener("mouseenter",()=>{active=true;canvas.style.opacity=1});
+document.addEventListener("mouseleave",()=>{active=false;canvas.style.opacity=0});
+document.addEventListener("mousemove",e=>{mouse.x=e.clientX;mouse.y=e.clientY});
 
-document.addEventListener("mousemove",e=>{
-  mouse.x=e.clientX;
-  mouse.y=e.clientY;
-});
-
-/* ===== SOFT ROPE ===== */
-let ropeY=0, swing=0, vel=0;
+/* physics */
+let ly=0,swing=0,vel=0;
 
 function update(){
-  if(!mouseActive) return;
-
-  const targetY=mouse.y+90; // lantern hangs lower
-  ropeY += (targetY-ropeY)*0.08;
+  const targetY=mouse.y+110;
+  ly+=(targetY-ly)*0.07;
 
   const targetSwing=(mouse.x-w/2)/w;
-  vel+=(targetSwing-swing)*0.02;
-  vel*=0.92;
+  vel+=(targetSwing-swing)*0.035;
+  vel*=0.9;
   swing+=vel;
+}
+
+function drawChain(x1,y1,x2,y2){
+  const segments=8;
+  for(let i=0;i<segments;i++){
+    const t=i/segments;
+    const nx=x1+(x2-x1)*t + Math.sin(t*Math.PI)*swing*20;
+    const ny=y1+(y2-y1)*t;
+    ctx.beginPath();
+    ctx.arc(nx,ny,2.2,0,Math.PI*2);
+    ctx.fillStyle="#ffd400";
+    ctx.fill();
+  }
 }
 
 function draw(){
   ctx.clearRect(0,0,w,h);
-  if(!mouseActive) return;
 
-  ctx.fillStyle="rgba(0,0,0,.6)";
+  // permanent darkness
+  ctx.fillStyle="rgba(0,0,0,.65)";
   ctx.fillRect(0,0,w,h);
 
-  let lx=mouse.x + swing*60;
-  let ly=ropeY;
+  if(!active) return;
 
-  let g=ctx.createRadialGradient(lx,ly,80,lx,ly,360);
+  let lx=mouse.x + swing*70;
+  let ly2=ly;
+
+  // light
+  let g=ctx.createRadialGradient(lx,ly2,80,lx,ly2,380);
   g.addColorStop(0,"rgba(255,230,150,1)");
-  g.addColorStop(.5,"rgba(255,210,120,.6)");
+  g.addColorStop(.5,"rgba(255,210,120,.55)");
   g.addColorStop(1,"rgba(0,0,0,0)");
   ctx.globalCompositeOperation="destination-out";
   ctx.fillStyle=g;
-  ctx.beginPath();ctx.arc(lx,ly,360,0,Math.PI*2);ctx.fill();
+  ctx.beginPath();ctx.arc(lx,ly2,380,0,Math.PI*2);ctx.fill();
   ctx.globalCompositeOperation="source-over";
 
-  ctx.strokeStyle="#ffd400";
-  ctx.lineWidth=2;
-  ctx.beginPath();
-  ctx.moveTo(mouse.x,mouse.y);
-  ctx.lineTo(lx,ly-20);
-  ctx.stroke();
+  // chain start BELOW cursor
+  const startX=mouse.x;
+  const startY=mouse.y+18;
 
-  ctx.drawImage(lanternImg,lx-30,ly-30,60,60);
+  drawChain(startX,startY,lx,ly2-25);
+
+  ctx.drawImage(lanternImg,lx-30,ly2-30,60,60);
 }
 
 function loop(){update();draw();requestAnimationFrame(loop)}
